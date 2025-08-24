@@ -16,6 +16,10 @@ const Header = () => {
           </div>
         </Link>
         <Search />
+        <Link to="/promo" className="header__promo">
+          <div className="header__dot"></div>
+          <button className="header__btnPromo">Акции</button>
+        </Link>
         <div className="header__cart">
           <Link to="/cart" className="button button--cart">
             <span>520 ₽</span>

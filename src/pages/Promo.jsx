@@ -1,0 +1,27 @@
+import React, { useEffect, useState } from "react";
+import styles from "./Promo.module.scss";
+import { Link } from "react-router-dom";
+
+const Promo = () => {
+  const [promo, setPromo] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:3001/promo")
+      .then((res) => res.json())
+      .then((data) => setPromo(data))
+      .catch((err) => console.error("Ошибка загрузки:", err));
+  }, []);
+  return (
+    <div className={styles.root}>
+      {promo.map((obj, index) => (
+        <div className={styles.card} key={obj.id}>
+          <img src={obj.promoURL} alt="promo" />
+          <h2>{obj.title}</h2>
+          <h4>{obj.text}</h4>
+          <Link to="/">Посмотреть</Link>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default Promo;

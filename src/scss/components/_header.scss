@@ -25,6 +25,42 @@
     }
   }
 
+  &__promo {
+    display: flex;
+    align-items: center;
+  }
+
+  &__dot {
+      width: 6px;
+      height: 6px;
+      background-color: black;
+      border-radius: 50%;
+    margin-right: 4px;
+  }
+
+
+
+  &__btnPromo {
+    display: flex;
+    width: 90px;
+    height: 30px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 25px;
+    background-color: #fe5f1e;
+    cursor: pointer;
+    border: none;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  &__btnPromo:hover {
+    background-color: #e05519;
+
+  }
+
   &__logo {
     display: flex;
 
