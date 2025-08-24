@@ -1,11 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { SearchContext } from "../App.js";
 
-const Catigories = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  const onClickCategory = (index) => {
-    setActiveIndex(index);
-  };
+const Catigories = ({ categoryId, onClickCategory }) => {
+  const { setSearchValue } = useContext(SearchContext);
 
   const catigories = [
     "Все",
@@ -22,8 +19,11 @@ const Catigories = () => {
         {catigories.map((item, index) => (
           <li
             key={index}
-            onClick={() => onClickCategory(index)}
-            className={activeIndex === index ? "active" : ""}
+            onClick={() => {
+              onClickCategory(index);
+              setSearchValue("");
+            }}
+            className={categoryId === index ? "active" : ""}
           >
             {item}
           </li>

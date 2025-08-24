@@ -4,10 +4,25 @@
   border-bottom: 1px solid $gray-line;
   padding: 40px 0;
 
+
+
   .container {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    @media (max-width: 650px) {
+      flex-direction: column;
+
+      .header__cart {
+        margin-top: 30px;
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        transform: translateY(20px);
+      }
+
+    }
   }
 
   &__logo {

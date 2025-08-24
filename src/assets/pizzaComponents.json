@@ -1,0 +1,128 @@
+[
+  {
+    "id": "1",
+    "name": "Сырный бортик",
+    "UrlTopping": "https://i.postimg.cc/Y21Nvqnh/cheese-Side.png",
+    "price": 179
+  },
+  {
+  "id": "2",
+  "name": "Пряная говядина",
+  "UrlTopping": "https://i.postimg.cc/gjD6NjQs/spicy-Beef.png",
+  "price": 119
+},
+  {
+    "id": "3",
+    "name": "Моцарелла",
+    "UrlTopping": "https://i.postimg.cc/jSkPpW5k/Mozzarella.png",
+    "price": 79
+  },
+  {
+    "id": "4",
+    "name": "Сыры чеддер и пармезан",
+    "UrlTopping": "https://i.postimg.cc/Jhv3kyCB/cheddar-and-parmesan-cheeses.png",
+    "price": 79
+  },
+  {
+    "id": "5",
+    "name": "Острый перец халапеньо",
+    "UrlTopping": "https://i.postimg.cc/vHbrfFkX/Hot-Jalapeno-Pepper.png",
+    "price": 59
+  },
+  {
+    "id": "6",
+    "name": "Нежный цыпленок",
+    "UrlTopping": "https://i.postimg.cc/9Fm9zPwn/tender-chicken.png",
+    "price": 79
+  },
+  {
+    "id": "7",
+    "name": "Шампиньоны",
+    "UrlTopping": "https://i.postimg.cc/7ZPN88Nb/champignons.png",
+    "price": 59
+  },
+  {
+    "id": "8",
+    "name": "Бекон",
+    "UrlTopping": "https://i.postimg.cc/VkwVJVWc/bacon.png",
+    "price": 79
+  },
+  {
+    "id": "9",
+    "name": "Ветчина",
+    "UrlTopping": "https://i.postimg.cc/0jqpVLQk/ham.png",
+    "price": 79
+  },
+  {
+    "id": "10",
+    "name": "Пикантная пеперони",
+    "UrlTopping": "https://i.postimg.cc/BvLH4qPZ/pecan-pepperoni.png",
+    "price": 79
+  },
+  {
+    "id": "11",
+    "name": "Острая чоризо",
+    "UrlTopping": "https://i.postimg.cc/wMcDZ0yh/hot-chorizo.png",
+    "price": 79
+  },
+  {
+    "id": "12",
+    "name": "Маринованные огурчики",
+    "UrlTopping": "https://i.postimg.cc/MGCRGh17/pickles.png",
+    "price": 59
+  },
+  {
+    "id": "13",
+    "name": "Свежие томаты",
+    "UrlTopping": "https://i.postimg.cc/vH0Vn1WH/tomatoes.png",
+    "price": 59
+  },
+  {
+    "id": "14",
+    "name": "Красный лук",
+    "UrlTopping": "https://i.postimg.cc/1tDFVJKL/red-onion.png",
+    "price": 59
+  },
+  {
+    "id": "15",
+    "name": "Сочные ананасы",
+    "UrlTopping": "https://i.postimg.cc/t4gFvdXx/juicy-pineapples.png",
+    "price": 59
+  },
+  {
+    "id": "16",
+    "name": "Итальянские травы",
+    "UrlTopping": "https://i.postimg.cc/NfD1xCwt/italian-herbs.png",
+    "price": 39
+  },
+  {
+    "id": "17",
+    "name": "Сладкий перец",
+    "UrlTopping": "https://i.postimg.cc/NG7TgCFX/sweet-pepper.png",
+    "price": 59
+  },
+  {
+    "id": "18",
+    "name": "Кубики брынзы",
+    "UrlTopping": "https://i.postimg.cc/fLdcjwMq/cheese-cubes.png",
+    "price": 79
+  },
+  {
+    "id": "19",
+    "name": "Баварские колбаски",
+    "UrlTopping": "https://i.postimg.cc/FHPVhWPp/Bavarian-sausages.png",
+    "price": 129
+  },
+  {
+    "id": "20",
+    "name": "креветки",
+    "UrlTopping": "https://i.postimg.cc/ZnZd8p70/shrimps.png",
+    "price": 199
+  },
+  {
+    "id": "21",
+    "name": "Сыр блю чиз",
+    "UrlTopping": "https://i.postimg.cc/CKzH5GXg/blue-cheese.png",
+    "price": 149
+  }
+]

@@ -1,0 +1,165 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  height: 100%;
+}
+
+/* левая часть шире */
+.left {
+  flex: 1.6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.imgPizza {
+  width: 500px;
+  max-width: 100%;
+  height: auto;
+}
+
+/* правая часть уже */
+.right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-width: 0; /* чтобы внутри не раздувало колонку */
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.pizzaBlockSelector {
+  display: flex;
+  background-color: #f3f3f3;
+  border-radius: 20px;
+  flex-direction: column;
+  padding: 4px;
+  cursor: pointer;
+
+  ul {
+    display: flex;
+    flex: 1;
+
+    &:first-of-type {
+      margin-bottom: 6px;
+    }
+
+    li {
+      flex: 1;
+      display: flex;              /* делаем li флекс-блоком */
+      justify-content: center;    /* центр по горизонтали */
+      align-items: center;        /* центр по вертикали */
+      padding: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      text-align: center;
+      &.active {
+        background: #ffffff;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.04);
+        border-radius: 20px;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.subTitle {
+  font-size: 22px;
+  font-weight: 700; /* жирнее */
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+/* сетка 3 в ряд, без горизонт. скролла */
+.slider {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)); /* ключевой фикс */
+  grid-auto-rows: 170px; /* одинаковая высота строк */
+  gap: 20px;
+  max-height: 300px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 10px; /* место под скроллбар */
+  scroll-behavior: smooth;
+  scrollbar-gutter: stable;
+  cursor: pointer;
+
+  &::-webkit-scrollbar { width: 12px; }
+  &::-webkit-scrollbar-thumb { background: #ccc; border-radius: 6px; }
+}
+
+/* карточка заполняет ячейку грида ровно по ширине */
+.toppingCard {
+  width: 100%;
+  height: 100%;
+  min-width: 0;          /* ключевой фикс */
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background: #f9f9f9;
+  border-radius: 15px;
+  padding: 12px;
+  text-align: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+
+.selected {
+  background: #ffe0b2;
+  border: 2px solid #ff6900;
+}
+
+.img {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+
+/* делаем название тусклее и не даём ему раздувать карточку */
+.toppingCard h3 {
+  font-size: 12px;
+  font-weight: 400;
+  color: #777;
+  line-height: 1.2;
+  margin: 0 0 6px;
+  text-align: center;
+}
+
+/* цена яркая и прижата вниз */
+.toppingCard p {
+  margin-top: auto;         /* прижать вниз */
+  font-size: 18px;
+  font-weight: 700;
+  color: #222;
+}
+
+.btnCart {
+  height: 50px;
+  width: 340px;
+  background: #FF6900;
+  margin-top: 20px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+}
+.btnCart:hover {
+  background: #FF5900;
+}
+
+.btnText {
+  color: #fff;
+}

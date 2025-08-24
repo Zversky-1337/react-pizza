@@ -1,0 +1,33 @@
+.pagination {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.item {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid orange;
+  background: white;
+  color: orange;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background: orange;
+    color: white;
+  }
+}
+
+.active {
+  background: orange;
+  color: white;
+}

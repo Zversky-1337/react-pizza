@@ -1,0 +1,41 @@
+
+.root {
+  position: relative;
+  display: inline-block;
+}
+
+.input {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 12px 40px 12px 20px;
+  border-radius: 15px;
+  width: 300px;
+  font-size: 16px;
+  position: relative;
+  z-index: 1;
+}
+
+.input:hover {
+  border: 2px solid rgba(0, 0, 0, 0.4);
+}
+
+.input:hover,
+.input.active {
+  border: 2px solid rgba(0, 0, 0, 0.4);
+}
+
+.img {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  opacity: 0.5;
+  width: 16px;
+  height: 16px;
+  z-index: 2;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}

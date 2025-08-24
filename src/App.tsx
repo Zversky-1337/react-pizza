@@ -2,22 +2,38 @@ import "./scss/app.scss";
 import Header from "./components/Header";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
+import Modal from "./pages/Modal";
 import Cart from "./pages/Cart";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
+import { createContext, useState } from "react";
+
+export const SearchContext = createContext("");
 
 function App() {
+  const location = useLocation();
+  const state = location.state;
+  const [searchValue, setSearchValue] = useState("");
+
   return (
     <div>
-      <div className="wrapper">
-        <Header />
-        <div className="content">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+      <SearchContext.Provider value={{ searchValue, setSearchValue }}>
+        <div className="wrapper">
+          <Header />
+          <div className="content">
+            <Routes location={state?.background || location}>
+              <Route path="/" element={<Home />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+
+            {state?.background && (
+              <Routes>
+                <Route path="/modal" element={<Modal />} />
+              </Routes>
+            )}
+          </div>
         </div>
-      </div>
+      </SearchContext.Provider>
     </div>
   );
 }
