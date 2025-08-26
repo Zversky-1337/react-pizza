@@ -1,18 +1,25 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 import styles from "./Search.module.scss";
 import { SearchContext } from "../../App.js";
 
 const Search = () => {
   const { searchValue, setSearchValue } = useContext(SearchContext);
+  const inputRef = useRef(null);
+
+  const onChangeInput = (e) => {
+    setSearchValue(e.target.value);
+  };
 
   const clearInput = () => {
     setSearchValue("");
+    inputRef.current?.focus();
   };
   return (
     <div className={styles.root}>
       <input
+        ref={inputRef}
         value={searchValue}
-        onChange={(e) => setSearchValue(e.target.value)}
+        onChange={onChangeInput}
         className={`${styles.input} ${searchValue ? styles.active : ""}`}
         placeholder="Поиск пиццы..."
         type="text"

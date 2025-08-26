@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "server": "npx json-server db.json",
+    "server": "npx json-server db.json --port 4000",
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
@@ -12,6 +12,9 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.8.2",
+    "axios": "^1.11.0",
+    "lodash.debounce": "^4.0.8",
+    "qs": "^6.14.0",
     "react": "^19.1.1",
     "react-content-loader": "^7.1.1",
     "react-dom": "^19.1.1",

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const Promo = () => {
   const [promo, setPromo] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:3001/promo")
+    fetch("http://localhost:4000/promo")
       .then((res) => res.json())
       .then((data) => setPromo(data))
       .catch((err) => console.error("Ошибка загрузки:", err));

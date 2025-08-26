@@ -1,12 +1,28 @@
 import logoPizza from "../assets/img/pizza-logo.svg";
 import { Link } from "react-router-dom";
 import Search from "./Search/Search.jsx";
+import { useDispatch } from "react-redux";
+import { setFilters } from "../redux/slices/filterSlice.js";
+import { arrSortName } from "./Sort.jsx";
+import { isMounted } from "../utils/refs.js";
 
 const Header = () => {
+  const dispatch = useDispatch();
+
+  const onClickLogo = () => {
+    dispatch(
+      setFilters({
+        categoryId: 0,
+        page: 1,
+        sort: arrSortName[0],
+      }),
+    );
+    isMounted.current = false;
+  };
   return (
     <div className="header">
       <div className="container">
-        <Link to="/">
+        <Link to="/" onClick={onClickLogo}>
           <div className="header__logo">
             <img width="38" src={logoPizza} alt="Pizza logo" />
             <div>

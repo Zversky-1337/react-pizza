@@ -1,18 +1,24 @@
 import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setSort } from "../redux/slices/filterSlice.js";
 
-const Sort = ({ sortType, onChangeSort }) => {
+export const arrSortName = [
+  { name: "популярности (убыв.)", sortProperty: "-rating" },
+  { name: "популярности (возр.)", sortProperty: "rating" },
+  { name: "цене (убыв.)", sortProperty: "-price" },
+  { name: "цене (возр.)", sortProperty: "price" },
+  { name: "алфавиту (А-Я)", sortProperty: "title" },
+  { name: "алфавиту (Я-А)", sortProperty: "-title" },
+];
+
+const Sort = () => {
+  const sort = useSelector((state) => state.filter.sort);
+  const dispatch = useDispatch();
+
   const [isVisible, setIsVisible] = useState(false);
-  const arrSortName = [
-    { name: "популярности (убыв.)", sortProperty: "-rating" },
-    { name: "популярности (возр.)", sortProperty: "rating" },
-    { name: "цене (убыв.)", sortProperty: "-price" },
-    { name: "цене (возр.)", sortProperty: "price" },
-    { name: "алфавиту (А-Я)", sortProperty: "title" },
-    { name: "алфавиту (Я-А)", sortProperty: "-title" },
-  ];
 
-  const onClickListItem = (i) => {
-    onChangeSort(i);
+  const onClickListItem = (obj) => {
+    dispatch(setSort(obj));
     setIsVisible(false);
   };
 
@@ -37,7 +43,7 @@ const Sort = ({ sortType, onChangeSort }) => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setIsVisible(!isVisible)}>{sortType.name}</span>
+        <span onClick={() => setIsVisible(!isVisible)}>{sort.name}</span>
       </div>
       {isVisible && (
         <div className="sort__popup">
@@ -45,9 +51,7 @@ const Sort = ({ sortType, onChangeSort }) => {
             {arrSortName.map((obj, index) => (
               <li
                 onClick={() => onClickListItem(obj)}
-                className={
-                  sortType.sortProperty === obj.sortProperty ? "active" : ""
-                }
+                className={sort === obj.sortProperty ? "active" : ""}
                 key={index}
               >
                 {obj.name}
