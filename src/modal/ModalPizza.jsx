@@ -2,8 +2,9 @@ import { useState } from "react";
 import styles from "./ModalPizza.module.scss";
 
 const ModalPizza = ({ pizza, toppings }) => {
-  const [price, setPrice] = useState(pizza.price);
   const typeNames = ["тонкое", "традиционное"];
+
+  const [price, setPrice] = useState(pizza.price);
   const [activeType, setActiveType] = useState(0);
   const [activeSize, setActiveSize] = useState(0);
   const [selectedToppings, setSelectedToppings] = useState([]);

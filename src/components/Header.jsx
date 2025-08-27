@@ -4,7 +4,6 @@ import Search from "./Search/Search.jsx";
 import { useDispatch } from "react-redux";
 import { setFilters } from "../redux/slices/filterSlice.js";
 import { arrSortName } from "./Sort.jsx";
-import { isMounted } from "../utils/refs.js";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -17,8 +16,8 @@ const Header = () => {
         sort: arrSortName[0],
       }),
     );
-    isMounted.current = false;
   };
+
   return (
     <div className="header">
       <div className="container">

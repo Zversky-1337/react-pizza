@@ -6,42 +6,40 @@ import { useContext, useEffect, useRef, useState } from "react";
 import Pagination from "../components/Pagination/Pagination.jsx";
 import { SearchContext } from "../App.js";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setCategoryId,
-  setPage,
-  setFilters,
-} from "../redux/slices/filterSlice.js";
+import { setCategoryId, setFilters } from "../redux/slices/filterSlice.js";
 import axios from "axios";
 import qs from "qs";
 import { useNavigate } from "react-router-dom";
-import { isMounted, isSearch } from "../utils/refs.js";
 
 const Home = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const { categoryId, sort, page } = useSelector((state) => state.filter);
   const sortType = sort.sortProperty;
 
-  const dispatch = useDispatch();
   const { searchValue } = useContext(SearchContext);
+
   const [isLoading, setIsLoading] = useState(true);
   const [items, setItems] = useState([]);
 
-  const fetchPizzas = () => {
-    setIsLoading(true);
-    const order = sortType.startsWith("-") ? "desc" : "asc";
-    const sortBy = sortType.replace("-", "");
+  const fetchPizzas = async () => {
+    try {
+      setIsLoading(true);
+      const order = sortType.startsWith("-") ? "desc" : "asc";
+      const sortBy = sortType.replace("-", "");
+      const category = categoryId > 0 ? `category=${categoryId}` : "";
+      const query = category
+        ? `?${category}&sortBy=${sortBy}&order=${order}`
+        : `?sortBy=${sortBy}&order=${order}`;
 
-    const category = categoryId > 0 ? `category=${categoryId}` : "";
-    const query = category
-      ? `?${category}&sortBy=${sortBy}&order=${order}`
-      : `?sortBy=${sortBy}&order=${order}`;
-
-    axios
-      .get(`https://68a5ec282a3deed2960f5c6a.mockapi.io/items${query}`)
-      .then((res) => {
-        setItems(res.data);
-        setIsLoading(false);
-      });
+      const { data } = await axios.get(
+        `https://68a5ec282a3deed2960f5c6a.mockapi.io/items${query}`,
+      );
+      setItems(data);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -50,29 +48,30 @@ const Home = () => {
       const sort = arrSortName.find(
         (obj) => obj.sortProperty === params.sortProperty,
       );
-      dispatch(setFilters({ ...params, sort }));
+      dispatch(
+        setFilters({
+          ...params,
+          sort,
+          categoryId: Number(params.categoryId),
+          page: Number(params.page),
+        }),
+      );
+    } else {
+      fetchPizzas();
     }
-    isSearch.current = true;
   }, []);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-    if (!isSearch.current) {
-      fetchPizzas();
-    }
-    isSearch.current = false;
-  }, [categoryId, sortType]);
+    fetchPizzas();
+  }, [categoryId, sortType, page]);
 
   useEffect(() => {
-    if (isMounted.current) {
-      const queryString = qs.stringify({
-        sortProperty: sort.sortProperty,
-        categoryId,
-        page,
-      });
-      navigate(`?${queryString}`);
-    }
-    isMounted.current = true;
+    const queryString = qs.stringify({
+      sortProperty: sort.sortProperty,
+      categoryId,
+      page,
+    });
+    navigate(`?${queryString}`, { replace: true });
   }, [categoryId, sortType, page]);
 
   const pizzas = items

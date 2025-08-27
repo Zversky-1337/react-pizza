@@ -14,6 +14,7 @@ const Search = () => {
     setSearchValue("");
     inputRef.current?.focus();
   };
+
   return (
     <div className={styles.root}>
       <input

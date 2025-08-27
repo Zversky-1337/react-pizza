@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import ModalPizza from "../modal/ModalPizza.jsx";
 import styles from "./Modal.module.scss";
 import { useLocation, useNavigate } from "react-router-dom";
-import Home from "./Home.jsx";
 
 const Modal = () => {
   const [toppings, setToppings] = useState([]);

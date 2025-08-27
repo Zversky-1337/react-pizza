@@ -10,6 +10,7 @@ const Promo = () => {
       .then((data) => setPromo(data))
       .catch((err) => console.error("Ошибка загрузки:", err));
   }, []);
+
   return (
     <div className={styles.root}>
       {promo.map((obj, index) => (
