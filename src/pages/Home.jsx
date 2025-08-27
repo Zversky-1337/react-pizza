@@ -18,6 +18,9 @@ const Home = () => {
   const { categoryId, sort, page } = useSelector((state) => state.filter);
   const sortType = sort.sortProperty;
 
+  console.log(window.history.state, 'window.location');
+
+  // TODO: Выносим search в redux
   const { searchValue } = useContext(SearchContext);
 
   const [isLoading, setIsLoading] = useState(true);

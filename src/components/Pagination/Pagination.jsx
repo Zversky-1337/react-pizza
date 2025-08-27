@@ -3,6 +3,7 @@ import styles from "./Pagination.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { setPage } from "../../redux/slices/filterSlice.js";
 
+// TODO сдеалть бесконоченый скролл
 const Pagination = () => {
   const dispatch = useDispatch();
   const currentPage = useSelector((state) => state.filter.page);

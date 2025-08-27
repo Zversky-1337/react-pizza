@@ -5,14 +5,18 @@ import NotFound from "./pages/NotFound";
 import Modal from "./pages/Modal";
 import Cart from "./pages/Cart";
 import Promo from "./pages/Promo";
-import { Routes, Route, useLocation } from "react-router-dom";
+import {Routes, Route, useLocation, useSearchParams} from "react-router-dom";
 import { createContext, useState } from "react";
-
+//TODO: context
 export const SearchContext = createContext("");
 
 function App() {
+  // TODO: modal (productid in url)
   const location = useLocation();
   const state = location.state;
+
+  console.log(state, 'state');
+
   const [searchValue, setSearchValue] = useState("");
 
   return (
@@ -27,7 +31,7 @@ function App() {
               <Route path="*" element={<NotFound />} />
               <Route path="/promo" element={<Promo />} />
             </Routes>
-
+            {/*//TODO modal (productid in url)*/}
             {state?.background && (
               <Routes>
                 <Route path="/modal" element={<Modal />} />

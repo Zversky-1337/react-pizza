@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import ModalPizza from "../modal/ModalPizza.jsx";
 import styles from "./Modal.module.scss";
-import { useLocation, useNavigate } from "react-router-dom";
-
-const Modal = () => {
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+// //TODO: page?
+const Modal = ({state}) => {
   const [toppings, setToppings] = useState([]);
 
   const location = useLocation();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
+  console.log(searchParams.get("productID"));
 
   const selectedPizza = location.state?.pizza;
 
@@ -18,6 +21,14 @@ const Modal = () => {
         setToppings(() => arr);
       });
   }, []);
+
+  // useEffect(() => {
+  //   fetch("http://localhost:4000/products?id=0")
+  //       .then((response) => response.json())
+  //       .then((arr) => {
+  //         setToppings(() => arr);
+  //       });
+  // }, []);
 
   if (!selectedPizza) return <p>Пицца не выбрана</p>;
 
