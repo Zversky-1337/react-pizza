@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Promo.module.scss";
 import { Link } from "react-router-dom";
-
+//TODO: loading error
 const Promo = () => {
   const [promo, setPromo] = useState([]);
+
   useEffect(() => {
+    //TODO try catch add loading
     fetch("http://localhost:4000/promo")
       .then((res) => res.json())
       .then((data) => setPromo(data))
@@ -13,7 +15,7 @@ const Promo = () => {
 
   return (
     <div className={styles.root}>
-      {promo.map((obj, index) => (
+      {promo.map((obj) => (
         <div className={styles.card} key={obj.id}>
           <img src={obj.promoURL} alt="promo" />
           <h2>{obj.title}</h2>

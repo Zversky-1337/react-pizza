@@ -55,7 +55,6 @@ const ModalPizza = ({ pizza, toppings }) => {
           </ul>
         </div>
         <h2 className={styles.subTitle}>Добавить по вкусу</h2>
-
         <div className={styles.slider}>
           {toppings.map((obj, i) => (
             <div

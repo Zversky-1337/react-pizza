@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+// TODO add search
 const initialState = {
   categoryId: 0,
   page: 1,
