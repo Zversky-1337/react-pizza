@@ -40,7 +40,6 @@ export const {
   setFilters,
   setCategoryId,
   setSort,
-  setPage,
 } = filterSlice.actions;
 
 export default filterSlice.reducer;

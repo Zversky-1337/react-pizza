@@ -32,6 +32,8 @@ const Home = () => {
     dispatch(setVisibleCount(10));
   }, [categoryId, sortType]);
 
+
+  // TODO Поменять пагинацию на /products?_page=1&_per_page=25 и бесконечную ленту через react course
   useEffect(() => {
     const handleScroll = () => {
       if (

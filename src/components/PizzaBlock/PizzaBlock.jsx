@@ -1,22 +1,25 @@
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {setSelectedPizza} from "../../redux/slices/modalPizzaSlice.js";
 
-const PizzaBlock = ({ title, price, imageUrl, sizes, types, toppings }) => {
+const PizzaBlock = ({ title, price, imageUrl, sizes, types, toppings, id }) => {
   const location = useLocation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const typeNames = ["тонкое", "традиционное"];
   const [pizzaCount, setPizzaCount] = useState(0);
   const [activeType, setActiveType] = useState(0);
   const [activeSize, setActiveSize] = useState(0);
 
   const addPizzaCount = () => setPizzaCount(pizzaCount + 1);
-
+  console.log(location,'location');
   return (
     <div className="pizza-block-wrapper">
-      <Link
-        to="/modal"
-        state={{
-          background: location,
-          pizza: { title, price, imageUrl, sizes, types, toppings },
+      <div
+        onClick={() => {
+          navigate(`/modal/${id}`)
+          dispatch(setSelectedPizza({ title, price, imageUrl, sizes, types, toppings, id, location }))
         }}
         className="pizza-block"
       >
@@ -68,7 +71,7 @@ const PizzaBlock = ({ title, price, imageUrl, sizes, types, toppings }) => {
             <i>{pizzaCount}</i>
           </button>
         </div>
-      </Link>
+      </div>
     </div>
   );
 };

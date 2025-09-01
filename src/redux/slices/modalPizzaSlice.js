@@ -9,6 +9,15 @@ export const fetchToppings = createAsyncThunk(
   },
 );
 
+
+export const fetchPizzaById = createAsyncThunk(
+    "modalPizza/fetchPizzaById",
+    async (id) => {
+      const { data } = await axios.get("http://localhost:4000/products",{params: { id }});
+      return data;
+    },
+);
+
 const initialState = {
   selectedPizza: null,
   activeType: 0,
@@ -17,6 +26,7 @@ const initialState = {
   price: 0,
   toppings: [],
   modalError: null,
+  location: null,
 };
 
 export const modalPizzaSlice = createSlice({
@@ -24,11 +34,13 @@ export const modalPizzaSlice = createSlice({
   initialState,
   reducers: {
     setSelectedPizza: (state, action) => {
+      console.log(action, 'action');
       state.selectedPizza = action.payload;
       state.price = action.payload ? action.payload.price : 0;
       state.activeSize = 0;
       state.activeType = 0;
       state.selectedToppings = [];
+      state.location = action.payload.location || null;
     },
     setActiveType: (state, action) => {
       state.activeType = action.payload;

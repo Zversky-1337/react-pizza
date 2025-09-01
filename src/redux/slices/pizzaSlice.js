@@ -1,11 +1,15 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
+const SLICE_NAME = "pizza";
+
+// TODO order to -sort value
 export const fetchPizzas = createAsyncThunk(
-  "pizza/fetchPizzasStatus",
+  `${SLICE_NAME}/fetchPizzasStatus`,
   async ({ category, sortBy, order }, thunkAPI) => {
     const { data } = await axios.get(
-      `http://localhost:4000/products?${category}_sort=${sortBy}&_order=${order}`,
+      `http://localhost:4000/products`,
+        {params: { category, _sort: sortBy, _order: order}}
     );
     return data;
   },
@@ -17,7 +21,7 @@ const initialState = {
 };
 
 export const pizzaSlice = createSlice({
-  name: "pizza",
+  name: SLICE_NAME,
   initialState,
   reducers: {
     setItems: (state, action) => {

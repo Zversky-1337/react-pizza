@@ -12,6 +12,7 @@ const Promo = () => {
     dispatch(fetchPromo());
   }, [dispatch]);
 
+  // TODO skeleton to loading
   if (status === "loading") return <p>Загрузка...</p>;
   if (status === "error") return <p>Ошибка при загрузке промо.</p>;
 
