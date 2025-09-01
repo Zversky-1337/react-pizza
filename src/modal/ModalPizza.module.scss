@@ -115,6 +115,15 @@
   flex-shrink: 0;
   box-shadow: 0 2px 5px rgba(0,0,0,0.15);
 }
+.errorMessage{
+ display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-weight: bold;
+  margin-top: 100px;
+  margin-bottom: 125px;
+}
 
 .selected {
   background: #ffe0b2;
@@ -155,11 +164,27 @@
   border: none;
   border-radius: 25px;
   cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transition: background 0.3s ease, color 0.3s ease; /* плавные изменения */
 }
+
 .btnCart:hover {
   background: #FF5900;
 }
 
+.btnCart:active {
+  background: #cc5200; /* темнее при клике */
+}
+
+.btnCart:active .btnText {
+  color: #fff; /* можно немного изменить, если нужно */
+}
+
 .btnText {
   color: #fff;
+  transition: color 0.3s ease; /* плавное изменение текста */
 }

@@ -1,42 +1,41 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import ModalPizza from "../modal/ModalPizza.jsx";
 import styles from "./Modal.module.scss";
-import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
-// //TODO: page?
-const Modal = ({state}) => {
-  const [toppings, setToppings] = useState([]);
+import { useLocation, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import {
+  fetchToppings,
+  setSelectedPizza,
+} from "../redux/slices/modalPizzaSlice.js";
 
+const Modal = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-
-  console.log(searchParams.get("productID"));
+  const dispatch = useDispatch();
 
   const selectedPizza = location.state?.pizza;
 
   useEffect(() => {
-    fetch("https://68a5ec282a3deed2960f5c6a.mockapi.io/topings")
-      .then((response) => response.json())
-      .then((arr) => {
-        setToppings(() => arr);
-      });
-  }, []);
-
-  // useEffect(() => {
-  //   fetch("http://localhost:4000/products?id=0")
-  //       .then((response) => response.json())
-  //       .then((arr) => {
-  //         setToppings(() => arr);
-  //       });
-  // }, []);
+    if (!selectedPizza) return;
+    dispatch(setSelectedPizza(selectedPizza));
+    dispatch(fetchToppings());
+  }, [selectedPizza, dispatch]);
 
   if (!selectedPizza) return <p>Пицца не выбрана</p>;
 
+  const closeModal = () => {
+    if (location.state?.background) {
+      navigate(location.state.background.pathname, { replace: true });
+    } else {
+      navigate("/", { replace: true });
+    }
+  };
+
   return (
     <>
-      <div className={styles.overlay} onClick={() => navigate(-1)}>
+      <div className={styles.overlay} onClick={closeModal}>
         <div className={styles.card} onClick={(e) => e.stopPropagation()}>
-          <ModalPizza pizza={selectedPizza} toppings={toppings} />
+          <ModalPizza />
         </div>
       </div>
     </>

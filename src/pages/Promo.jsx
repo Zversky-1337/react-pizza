@@ -1,17 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styles from "./Promo.module.scss";
 import { Link } from "react-router-dom";
-//TODO: loading error
+import { useDispatch, useSelector } from "react-redux";
+import { fetchPromo } from "../redux/slices/promoSlice.js";
+
 const Promo = () => {
-  const [promo, setPromo] = useState([]);
+  const dispatch = useDispatch();
+  const { promo, status } = useSelector((state) => state.promo);
 
   useEffect(() => {
-    //TODO try catch add loading
-    fetch("http://localhost:4000/promo")
-      .then((res) => res.json())
-      .then((data) => setPromo(data))
-      .catch((err) => console.error("Ошибка загрузки:", err));
-  }, []);
+    dispatch(fetchPromo());
+  }, [dispatch]);
+
+  if (status === "loading") return <p>Загрузка...</p>;
+  if (status === "error") return <p>Ошибка при загрузке промо.</p>;
 
   return (
     <div className={styles.root}>

@@ -1,17 +1,20 @@
 import React, { useContext, useRef } from "react";
 import styles from "./Search.module.scss";
-import { SearchContext } from "../../App.js";
+import { useDispatch, useSelector } from "react-redux";
+import { setSearchValue } from "../../redux/slices/filterSlice.js";
 
 const Search = () => {
-  const { searchValue, setSearchValue } = useContext(SearchContext);
+  const searchValue = useSelector((state) => state.filter.searchValue);
+  const dispatch = useDispatch();
+
   const inputRef = useRef(null);
 
   const onChangeInput = (e) => {
-    setSearchValue(e.target.value);
+    dispatch(setSearchValue(e.target.value));
   };
 
   const clearInput = () => {
-    setSearchValue("");
+    dispatch(setSearchValue(""));
     inputRef.current?.focus();
   };
 

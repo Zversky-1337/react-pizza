@@ -1,22 +1,42 @@
-import { useState } from "react";
 import styles from "./ModalPizza.module.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { addItem } from "../redux/slices/cartSlice.js";
+import { useNavigate } from "react-router-dom";
+import {
+  setActiveSize,
+  setActiveType,
+  toggleTopping,
+} from "../redux/slices/modalPizzaSlice.js";
 
-const ModalPizza = ({ pizza, toppings }) => {
+const ModalPizza = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const {
+    selectedPizza: pizza,
+    activeType,
+    activeSize,
+    selectedToppings,
+    price,
+    toppings,
+    modalError,
+  } = useSelector((state) => state.modalPizza);
+
+  if (!pizza) return null;
+
   const typeNames = ["тонкое", "традиционное"];
 
-  const [price, setPrice] = useState(pizza.price);
-  const [activeType, setActiveType] = useState(0);
-  const [activeSize, setActiveSize] = useState(0);
-  const [selectedToppings, setSelectedToppings] = useState([]);
-
-  const toggleTopping = (obj) => {
-    if (selectedToppings.includes(obj.id)) {
-      setSelectedToppings((prev) => prev.filter((id) => id !== obj.id));
-      setPrice((prev) => prev - obj.price);
-    } else {
-      setSelectedToppings((prev) => [...prev, obj.id]);
-      setPrice((prev) => prev + obj.price);
-    }
+  const onClickAdd = () => {
+    const item = {
+      id: pizza.id,
+      title: pizza.title,
+      price: price,
+      imageUrl: pizza.imageUrl,
+      type: typeNames[activeType],
+      size: pizza.sizes[activeSize],
+    };
+    dispatch(addItem(item));
+    setTimeout(() => navigate("/"), 100);
   };
 
   return (
@@ -35,7 +55,7 @@ const ModalPizza = ({ pizza, toppings }) => {
             {pizza.types.map((typeId, i) => (
               <li
                 key={i}
-                onClick={() => setActiveType(i)}
+                onClick={() => dispatch(setActiveType(i))}
                 className={activeType === i ? styles.active : ""}
               >
                 {typeNames[typeId]}
@@ -46,7 +66,7 @@ const ModalPizza = ({ pizza, toppings }) => {
             {pizza.sizes.map((size, i) => (
               <li
                 key={i}
-                onClick={() => setActiveSize(i)}
+                onClick={() => dispatch(setActiveSize(i))}
                 className={activeSize === i ? styles.active : ""}
               >
                 {size} см.
@@ -54,21 +74,35 @@ const ModalPizza = ({ pizza, toppings }) => {
             ))}
           </ul>
         </div>
+
         <h2 className={styles.subTitle}>Добавить по вкусу</h2>
-        <div className={styles.slider}>
-          {toppings.map((obj, i) => (
-            <div
-              onClick={() => toggleTopping(obj)}
-              key={obj.id}
-              className={`${styles.toppingCard} ${selectedToppings.includes(obj.id) ? styles.selected : ""}`}
-            >
-              <img className={styles.img} src={obj.UrlTopping} alt={obj.id} />
-              <h3>{obj.name}</h3>
-              <p>{obj.price} ₽</p>
-            </div>
-          ))}
-        </div>
-        <button className={styles.btnCart}>
+        {modalError ? (
+          <h2 className={styles.errorMessage}>
+            Выбор топпингов временно недоступен:(
+          </h2>
+        ) : (
+          <div className={styles.slider}>
+            {toppings.map((obj) => (
+              <div
+                onClick={() => dispatch(toggleTopping(obj))}
+                key={obj.id}
+                className={`${styles.toppingCard} ${
+                  selectedToppings.includes(obj.id) ? styles.selected : ""
+                }`}
+              >
+                <img
+                  className={styles.img}
+                  src={obj.UrlTopping}
+                  alt={obj.name}
+                />
+                <h3>{obj.name}</h3>
+                <p>{obj.price} ₽</p>
+              </div>
+            ))}
+          </div>
+        )}
+
+        <button onClick={onClickAdd} className={styles.btnCart}>
           <h3 className={styles.btnText}>В корзину за {price}₽</h3>
         </button>
       </div>

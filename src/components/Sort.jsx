@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setSort } from "../redux/slices/filterSlice.js";
 
@@ -15,6 +15,8 @@ const Sort = () => {
   const sort = useSelector((state) => state.filter.sort);
   const dispatch = useDispatch();
 
+  const sortRef = useRef(null);
+
   const [isVisible, setIsVisible] = useState(false);
 
   const onClickListItem = (obj) => {
@@ -22,8 +24,24 @@ const Sort = () => {
     setIsVisible(false);
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      // получаем путь события
+      const path = event.composedPath ? event.composedPath() : [];
+      if (!path.includes(sortRef.current)) {
+        setIsVisible(false);
+      }
+    };
+
+    document.body.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.body.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div className="sort">
+    <div ref={sortRef} className="sort">
       <div
         onClick={() => {
           setIsVisible(!isVisible);
@@ -51,7 +69,9 @@ const Sort = () => {
             {arrSortName.map((obj, index) => (
               <li
                 onClick={() => onClickListItem(obj)}
-                className={sort === obj.sortProperty ? "active" : ""}
+                className={
+                  sort.sortProperty === obj.sortProperty ? "active" : ""
+                }
                 key={index}
               >
                 {obj.name}

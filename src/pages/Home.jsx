@@ -1,108 +1,85 @@
-import Catigories from "../components/Catigories.jsx";
-import Sort, { arrSortName } from "../components/Sort.jsx";
+import React, { useEffect, useState } from "react";
 import PizzaBlock from "../components/PizzaBlock/PizzaBlock";
 import Skeleton from "../components/PizzaBlock/Skeleton";
-import { useContext, useEffect, useRef, useState } from "react";
-import Pagination from "../components/Pagination/Pagination.jsx";
-import { SearchContext } from "../App.js";
 import { useDispatch, useSelector } from "react-redux";
-import { setCategoryId, setFilters } from "../redux/slices/filterSlice.js";
-import axios from "axios";
-import qs from "qs";
-import { useNavigate } from "react-router-dom";
+import Filter from "../components/Filter.jsx";
+import { fetchPizzas } from "../redux/slices/pizzaSlice.js";
+import { setVisibleCount } from "../redux/slices/filterSlice.js";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Home = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const { categoryId, sort, page } = useSelector((state) => state.filter);
+  const { items, status } = useSelector((state) => state.pizza);
+  const { categoryId, sort, searchValue, visibleCount } = useSelector(
+    (state) => state.filter,
+  );
   const sortType = sort.sortProperty;
 
-  console.log(window.history.state, 'window.location');
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  // TODO: Выносим search в redux
-  const { searchValue } = useContext(SearchContext);
+  const getPizzas = () => {
+    const order = sortType.startsWith("-") ? "desc" : "asc";
+    const sortBy = sortType.replace("-", "");
+    const category = categoryId > 0 ? `category=${categoryId}&` : "";
 
-  const [isLoading, setIsLoading] = useState(true);
-  const [items, setItems] = useState([]);
-
-  const fetchPizzas = async () => {
-    try {
-      setIsLoading(true);
-      const order = sortType.startsWith("-") ? "desc" : "asc";
-      const sortBy = sortType.replace("-", "");
-      const category = categoryId > 0 ? `category=${categoryId}` : "";
-      const query = category
-        ? `?${category}&sortBy=${sortBy}&order=${order}`
-        : `?sortBy=${sortBy}&order=${order}`;
-
-      const { data } = await axios.get(
-        `https://68a5ec282a3deed2960f5c6a.mockapi.io/items${query}`,
-      );
-      setItems(data);
-    } finally {
-      setIsLoading(false);
-    }
+    dispatch(fetchPizzas({ order, sortBy, category }));
+    window.scrollTo(0, 0);
   };
 
   useEffect(() => {
-    if (window.location.search) {
-      const params = qs.parse(window.location.search.substring(1));
-      const sort = arrSortName.find(
-        (obj) => obj.sortProperty === params.sortProperty,
-      );
-      dispatch(
-        setFilters({
-          ...params,
-          sort,
-          categoryId: Number(params.categoryId),
-          page: Number(params.page),
-        }),
-      );
-    } else {
-      fetchPizzas();
-    }
-  }, []);
+    getPizzas();
+    dispatch(setVisibleCount(10));
+  }, [categoryId, sortType]);
 
   useEffect(() => {
-    fetchPizzas();
-  }, [categoryId, sortType, page]);
+    const handleScroll = () => {
+      if (
+        window.innerHeight + window.scrollY >=
+        document.body.offsetHeight - 200
+      ) {
+        dispatch(setVisibleCount(Math.min(visibleCount + 10, items.length)));
+      }
+    };
 
-  useEffect(() => {
-    const queryString = qs.stringify({
-      sortProperty: sort.sortProperty,
-      categoryId,
-      page,
-    });
-    navigate(`?${queryString}`, { replace: true });
-  }, [categoryId, sortType, page]);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [visibleCount, items.length]);
 
   const pizzas = items
     .filter((obj) =>
       obj.title.toLowerCase().includes(searchValue.toLowerCase()),
     )
-    .map((obj) => <PizzaBlock key={obj.id} {...obj} />);
+    .slice(0, visibleCount)
+    .map((obj, index) => (
+      <div
+        key={`${obj.id}-${index}`}
+        onClick={() =>
+          navigate(`/modal/${obj.id}`, {
+            state: { background: location, pizza: obj },
+          })
+        }
+      >
+        <PizzaBlock {...obj} />
+      </div>
+    ));
+
   const skeletons = [...new Array(6)].map((_, i) => <Skeleton key={i} />);
 
-  const onChangeCategory = (id) => {
-    dispatch(setCategoryId(id));
-  };
-
   return (
-    <>
-      <div className="container">
-        <div className="content__top">
-          <Catigories
-            categoryId={categoryId}
-            onClickCategory={onChangeCategory}
-          />
-          <Sort />
+    <div className="container">
+      <Filter />
+
+      <h2 className="content__title">Все пиццы</h2>
+      {status === "error" ? (
+        <h2>Пиццы не доступны из-за неполадок на сервере:(</h2>
+      ) : (
+        <div className="content__items">
+          {pizzas}
+          {status === "loading" && skeletons}
         </div>
-        <h2 className="content__title">Все пиццы</h2>
-        <div className="content__items">{isLoading ? skeletons : pizzas}</div>
-        <Pagination />
-      </div>
-    </>
+      )}
+    </div>
   );
 };
 

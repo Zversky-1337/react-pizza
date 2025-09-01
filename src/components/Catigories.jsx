@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
-import { SearchContext } from "../App.js";
+import { useDispatch } from "react-redux";
+import { setSearchValue } from "../redux/slices/filterSlice.js";
 
 const Catigories = ({ categoryId, onClickCategory }) => {
-  const { setSearchValue } = useContext(SearchContext);
+  const dispatch = useDispatch();
 
   const catigories = [
     "Все",
@@ -21,7 +21,7 @@ const Catigories = ({ categoryId, onClickCategory }) => {
             key={index}
             onClick={() => {
               onClickCategory(index);
-              setSearchValue("");
+              dispatch(setSearchValue(""));
             }}
             className={categoryId === index ? "active" : ""}
           >

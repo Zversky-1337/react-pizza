@@ -1,12 +1,15 @@
 import logoPizza from "../assets/img/pizza-logo.svg";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Search from "./Search/Search.jsx";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setFilters } from "../redux/slices/filterSlice.js";
 import { arrSortName } from "./Sort.jsx";
+import { selectCart } from "../redux/slices/cartSlice.js";
 
 const Header = () => {
   const dispatch = useDispatch();
+  const { totalPrice, countPizzaCart } = useSelector(selectCart);
+  const { pathname } = useLocation();
 
   const onClickLogo = () => {
     dispatch(
@@ -21,23 +24,28 @@ const Header = () => {
   return (
     <div className="header">
       <div className="container">
-        <Link to="/" onClick={onClickLogo}>
-          <div className="header__logo">
-            <img width="38" src={logoPizza} alt="Pizza logo" />
-            <div>
-              <h1>React Pizza</h1>
-              <p>самая вкусная пицца во вселенной</p>
+        <div onClick={onClickLogo}>
+          <Link to="/">
+            <div className="header__logo">
+              <img width="38" src={logoPizza} alt="Pizza logo" />
+              <div>
+                <h1>React Pizza</h1>
+                <p>самая вкусная пицца во вселенной</p>
+              </div>
             </div>
-          </div>
-        </Link>
-        <Search />
-        <Link to="/promo" className="header__promo">
-          <div className="header__dot"></div>
-          <button className="header__btnPromo">Акции</button>
-        </Link>
+          </Link>
+        </div>
+        {pathname !== "/cart" && <Search />}
+        {pathname !== "/cart" && (
+          <Link to="/promo" className="header__promo">
+            <div className="header__dot"></div>
+            <button className="header__btnPromo">Акции</button>
+          </Link>
+        )}
+
         <div className="header__cart">
           <Link to="/cart" className="button button--cart">
-            <span>520 ₽</span>
+            <span>{totalPrice} ₽</span>
             <div className="button__delimiter"></div>
             <svg
               width="18"
@@ -68,7 +76,7 @@ const Header = () => {
                 strokeLinejoin="round"
               />
             </svg>
-            <span>3</span>
+            <span>{countPizzaCart}</span>
           </Link>
         </div>
       </div>

@@ -37,5 +37,933 @@
       "text": "Покупайте продукты в комбо со скидкой до 15%. Для себя, на двоих или на компанию — найдется набор на любой случай"
     }
   ],
-  "products": [{"id":0,"imageUrl":"https://media.dodostatic.net/image/r:760x760/0198bf57bc517218ab93c762f4b0193e.avif","title":"Пепперони Фреш с перцем","types":[0,1],"sizes":[26,30,40],"price":803,"category":4,"rating":4},{"id":1,"imageUrl":"https://media.dodostatic.net/image/r:760x760/0198bf40eb1171aabe90b1b3ce07c0c5.avif","title":"Сырная","types":[0],"sizes":[26,40],"price":245,"category":2,"rating":6},{"id":2,"imageUrl":"https://media.dodostatic.net/image/r:760x760/0198bf2cc87a79baa946c53b634615f4.avif","title":"Цыпленок барбекю","types":[0],"sizes":[26,40],"price":295,"category":3,"rating":4},{"id":3,"imageUrl":"https://media.dodostatic.net/image/r:760x760/0198bf5147f27780a3290a82692e7a36.avif","title":"Креветки со сладким чили","types":[1],"sizes":[26,30,40],"price":275,"category":1,"rating":2},{"id":4,"imageUrl":"https://media.dodostatic.net/image/r:760x760/0198bf3fab7976678d811111bb2e8cb9.avif","title":"Бургер-пицца","types":[0,1],"sizes":[26,30,40],"price":415,"category":5,"rating":8},{"id":5,"imageUrl":"https://media.dodostatic.net/image/r:760x760/0198bf4624de7324966f2fc62c3ca673.avif","title":"Чилл Грилл","types":[0],"sizes":[30,40],"price":580,"category":3,"rating":2},{"id":6,"imageUrl":"https://media.dodostatic.net/image/r:760x760/0198bf4d218b75d4a3e667fc2f6d7643.avif","title":"Креветка и песто","types":[0,1],"sizes":[26,30,40],"price":675,"category":1,"rating":9},{"id":7,"imageUrl":"https://media.dodostatic.net/image/r:760x760/0198bf29e76179b88bdbf2ec5527bba3.avif","title":"Овощи и грибы","types":[0,1],"sizes":[26,30,40],"price":450,"category":2,"rating":10},{"id":8,"imageUrl":"https://media.dodostatic.net/image/r:760x760/0198bf2e5d2973a4bf5ec61161496f91.avif","title":"Аррива!","types":[0,1],"sizes":[26,30,40],"price":395,"category":5,"rating":10},{"id":9,"imageUrl":"https://media.dodostatic.net/image/r:760x760/0197fa0f7ee07568a39ac9a8c2f8c827.avif","title":"Терияки","types":[0,1],"sizes":[26,30,40],"price":285,"category":1,"rating":7}]
+
+  "products": [
+    {
+      "id": 0,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0197fa0f7ee07568a39ac9a8c2f8c827.avif",
+      "title": "Сырная фреш",
+      "types": [
+        0
+      ],
+      "sizes": [
+        40,
+        30,
+        26
+      ],
+      "price": 668,
+      "category": 3,
+      "rating": 10
+    },
+    {
+      "id": 1,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf3fab7976678d811111bb2e8cb9.avif",
+      "title": "Вегетарианская фреш",
+      "types": [
+        0
+      ],
+      "sizes": [
+        30,
+        26
+      ],
+      "price": 309,
+      "category": 4,
+      "rating": 1
+    },
+    {
+      "id": 2,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf3fab7976678d811111bb2e8cb9.avif",
+      "title": "Четыре сыра люкс",
+      "types": [
+        0
+      ],
+      "sizes": [
+        40,
+        30,
+        26
+      ],
+      "price": 371,
+      "category": 1,
+      "rating": 7
+    },
+    {
+      "id": 3,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf29e76179b88bdbf2ec5527bba3.avif",
+      "title": "Гавайская классическая",
+      "types": [
+        0,
+        1
+      ],
+      "sizes": [
+        26,
+        40,
+        30
+      ],
+      "price": 275,
+      "category": 1,
+      "rating": 1
+    },
+    {
+      "id": 4,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf3fab7976678d811111bb2e8cb9.avif",
+      "title": "Вегетарианская классическая",
+      "types": [
+        0,
+        1
+      ],
+      "sizes": [
+        26,
+        40,
+        30
+      ],
+      "price": 305,
+      "category": 4,
+      "rating": 10
+    },
+    {
+      "id": 5,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf3fab7976678d811111bb2e8cb9.avif",
+      "title": "С ананасами по-домашнему",
+      "types": [
+        1
+      ],
+      "sizes": [
+        40
+      ],
+      "price": 505,
+      "category": 4,
+      "rating": 9
+    },
+    {
+      "id": 6,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf4d218b75d4a3e667fc2f6d7643.avif",
+      "title": "Четыре сыра люкс",
+      "types": [
+        1
+      ],
+      "sizes": [
+        40,
+        26,
+        30
+      ],
+      "price": 824,
+      "category": 5,
+      "rating": 10
+    },
+    {
+      "id": 7,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf57bc517218ab93c762f4b0193e.avif",
+      "title": "С ветчиной классическая",
+      "types": [
+        0,
+        1
+      ],
+      "sizes": [
+        40
+      ],
+      "price": 778,
+      "category": 5,
+      "rating": 2
+    },
+    {
+      "id": 8,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf29e76179b88bdbf2ec5527bba3.avif",
+      "title": "Пепперони люкс",
+      "types": [
+        1,
+        0
+      ],
+      "sizes": [
+        40
+      ],
+      "price": 718,
+      "category": 5,
+      "rating": 1
+    },
+    {
+      "id": 9,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf40eb1171aabe90b1b3ce07c0c5.avif",
+      "title": "С тунцом люкс",
+      "types": [
+        1
+      ],
+      "sizes": [
+        30,
+        40
+      ],
+      "price": 769,
+      "category": 3,
+      "rating": 1
+    },
+    {
+      "id": 10,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf4624de7324966f2fc62c3ca673.avif",
+      "title": "Мясная по-домашнему",
+      "types": [
+        1
+      ],
+      "sizes": [
+        30,
+        40,
+        26
+      ],
+      "price": 493,
+      "category": 5,
+      "rating": 5
+    },
+    {
+      "id": 11,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf4d218b75d4a3e667fc2f6d7643.avif",
+      "title": "Гавайская классическая",
+      "types": [
+        0
+      ],
+      "sizes": [
+        40,
+        26,
+        30
+      ],
+      "price": 528,
+      "category": 2,
+      "rating": 2
+    },
+    {
+      "id": 12,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf4d218b75d4a3e667fc2f6d7643.avif",
+      "title": "Фирменная по-домашнему",
+      "types": [
+        0,
+        1
+      ],
+      "sizes": [
+        30,
+        26,
+        40
+      ],
+      "price": 205,
+      "category": 4,
+      "rating": 1
+    },
+    {
+      "id": 13,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf57bc517218ab93c762f4b0193e.avif",
+      "title": "Вегетарианская классическая",
+      "types": [
+        0
+      ],
+      "sizes": [
+        40,
+        30
+      ],
+      "price": 505,
+      "category": 5,
+      "rating": 3
+    },
+    {
+      "id": 14,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf40eb1171aabe90b1b3ce07c0c5.avif",
+      "title": "С ананасами классическая",
+      "types": [
+        1
+      ],
+      "sizes": [
+        40,
+        26
+      ],
+      "price": 244,
+      "category": 2,
+      "rating": 2
+    },
+    {
+      "id": 15,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf5147f27780a3290a82692e7a36.avif",
+      "title": "Мясная спешл",
+      "types": [
+        1,
+        0
+      ],
+      "sizes": [
+        30,
+        40
+      ],
+      "price": 720,
+      "category": 4,
+      "rating": 8
+    },
+    {
+      "id": 16,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf4d218b75d4a3e667fc2f6d7643.avif",
+      "title": "Четыре сыра по-домашнему",
+      "types": [
+        1,
+        0
+      ],
+      "sizes": [
+        26
+      ],
+      "price": 823,
+      "category": 3,
+      "rating": 3
+    },
+    {
+      "id": 17,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf2e5d2973a4bf5ec61161496f91.avif",
+      "title": "Острая по-домашнему",
+      "types": [
+        0
+      ],
+      "sizes": [
+        30
+      ],
+      "price": 772,
+      "category": 5,
+      "rating": 7
+    },
+    {
+      "id": 18,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf4624de7324966f2fc62c3ca673.avif",
+      "title": "Диабло классическая",
+      "types": [
+        0,
+        1
+      ],
+      "sizes": [
+        30
+      ],
+      "price": 240,
+      "category": 3,
+      "rating": 8
+    },
+    {
+      "id": 19,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf40eb1171aabe90b1b3ce07c0c5.avif",
+      "title": "Овощная фреш",
+      "types": [
+        1
+      ],
+      "sizes": [
+        30,
+        26,
+        40
+      ],
+      "price": 538,
+      "category": 4,
+      "rating": 6
+    },
+    {
+      "id": 20,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf4d218b75d4a3e667fc2f6d7643.avif",
+      "title": "Острая фреш",
+      "types": [
+        0
+      ],
+      "sizes": [
+        40,
+        30,
+        26
+      ],
+      "price": 578,
+      "category": 5,
+      "rating": 7
+    },
+    {
+      "id": 21,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf4d218b75d4a3e667fc2f6d7643.avif",
+      "title": "Диабло по-домашнему",
+      "types": [
+        1,
+        0
+      ],
+      "sizes": [
+        30,
+        40
+      ],
+      "price": 700,
+      "category": 1,
+      "rating": 9
+    },
+    {
+      "id": 22,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf29e76179b88bdbf2ec5527bba3.avif",
+      "title": "С беконом по-домашнему",
+      "types": [
+        1
+      ],
+      "sizes": [
+        26,
+        40,
+        30
+      ],
+      "price": 228,
+      "category": 3,
+      "rating": 8
+    },
+    {
+      "id": 23,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf57bc517218ab93c762f4b0193e.avif",
+      "title": "С креветками классическая",
+      "types": [
+        0
+      ],
+      "sizes": [
+        26,
+        40,
+        30
+      ],
+      "price": 659,
+      "category": 3,
+      "rating": 3
+    },
+    {
+      "id": 24,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf3fab7976678d811111bb2e8cb9.avif",
+      "title": "С креветками фреш",
+      "types": [
+        0
+      ],
+      "sizes": [
+        30,
+        40
+      ],
+      "price": 738,
+      "category": 1,
+      "rating": 2
+    },
+    {
+      "id": 25,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf40eb1171aabe90b1b3ce07c0c5.avif",
+      "title": "Маргарита спешл",
+      "types": [
+        0,
+        1
+      ],
+      "sizes": [
+        30
+      ],
+      "price": 223,
+      "category": 5,
+      "rating": 6
+    },
+    {
+      "id": 26,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0197fa0f7ee07568a39ac9a8c2f8c827.avif",
+      "title": "Маргарита люкс",
+      "types": [
+        1
+      ],
+      "sizes": [
+        40,
+        26,
+        30
+      ],
+      "price": 479,
+      "category": 5,
+      "rating": 3
+    },
+    {
+      "id": 27,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf29e76179b88bdbf2ec5527bba3.avif",
+      "title": "Четыре сыра спешл",
+      "types": [
+        0,
+        1
+      ],
+      "sizes": [
+        26,
+        30,
+        40
+      ],
+      "price": 475,
+      "category": 4,
+      "rating": 9
+    },
+    {
+      "id": 28,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf3fab7976678d811111bb2e8cb9.avif",
+      "title": "Маргарита спешл",
+      "types": [
+        1
+      ],
+      "sizes": [
+        40,
+        26,
+        30
+      ],
+      "price": 466,
+      "category": 1,
+      "rating": 2
+    },
+    {
+      "id": 29,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0197fa0f7ee07568a39ac9a8c2f8c827.avif",
+      "title": "Пепперони люкс",
+      "types": [
+        0
+      ],
+      "sizes": [
+        26,
+        30
+      ],
+      "price": 502,
+      "category": 2,
+      "rating": 9
+    },
+    {
+      "id": 30,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf40eb1171aabe90b1b3ce07c0c5.avif",
+      "title": "Овощная фреш",
+      "types": [
+        0,
+        1
+      ],
+      "sizes": [
+        30
+      ],
+      "price": 766,
+      "category": 3,
+      "rating": 10
+    },
+    {
+      "id": 31,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf3fab7976678d811111bb2e8cb9.avif",
+      "title": "Гавайская фреш",
+      "types": [
+        1
+      ],
+      "sizes": [
+        40
+      ],
+      "price": 711,
+      "category": 3,
+      "rating": 8
+    },
+    {
+      "id": 32,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf4d218b75d4a3e667fc2f6d7643.avif",
+      "title": "Курица грибы по-домашнему",
+      "types": [
+        1
+      ],
+      "sizes": [
+        26
+      ],
+      "price": 470,
+      "category": 4,
+      "rating": 7
+    },
+    {
+      "id": 33,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf29e76179b88bdbf2ec5527bba3.avif",
+      "title": "Сырная фреш",
+      "types": [
+        1,
+        0
+      ],
+      "sizes": [
+        26,
+        30
+      ],
+      "price": 270,
+      "category": 3,
+      "rating": 5
+    },
+    {
+      "id": 34,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf57bc517218ab93c762f4b0193e.avif",
+      "title": "Барбекю спешл",
+      "types": [
+        0
+      ],
+      "sizes": [
+        40
+      ],
+      "price": 836,
+      "category": 5,
+      "rating": 1
+    },
+    {
+      "id": 35,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf2e5d2973a4bf5ec61161496f91.avif",
+      "title": "Салями по-домашнему",
+      "types": [
+        1,
+        0
+      ],
+      "sizes": [
+        30,
+        40
+      ],
+      "price": 588,
+      "category": 5,
+      "rating": 1
+    },
+    {
+      "id": 36,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf2e5d2973a4bf5ec61161496f91.avif",
+      "title": "С беконом спешл",
+      "types": [
+        1
+      ],
+      "sizes": [
+        30,
+        40
+      ],
+      "price": 219,
+      "category": 3,
+      "rating": 4
+    },
+    {
+      "id": 37,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf57bc517218ab93c762f4b0193e.avif",
+      "title": "Маргарита по-домашнему",
+      "types": [
+        1,
+        0
+      ],
+      "sizes": [
+        26
+      ],
+      "price": 253,
+      "category": 5,
+      "rating": 10
+    },
+    {
+      "id": 38,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf29e76179b88bdbf2ec5527bba3.avif",
+      "title": "С тунцом фреш",
+      "types": [
+        0,
+        1
+      ],
+      "sizes": [
+        26,
+        40
+      ],
+      "price": 631,
+      "category": 3,
+      "rating": 5
+    },
+    {
+      "id": 39,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf2cc87a79baa946c53b634615f4.avif",
+      "title": "Четыре сыра классическая",
+      "types": [
+        1,
+        0
+      ],
+      "sizes": [
+        40,
+        30,
+        26
+      ],
+      "price": 323,
+      "category": 4,
+      "rating": 6
+    },
+    {
+      "id": 40,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf2e5d2973a4bf5ec61161496f91.avif",
+      "title": "Барбекю спешл",
+      "types": [
+        1
+      ],
+      "sizes": [
+        26,
+        40
+      ],
+      "price": 682,
+      "category": 1,
+      "rating": 2
+    },
+    {
+      "id": 41,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf5147f27780a3290a82692e7a36.avif",
+      "title": "Четыре сыра спешл",
+      "types": [
+        1
+      ],
+      "sizes": [
+        40,
+        30
+      ],
+      "price": 821,
+      "category": 2,
+      "rating": 10
+    },
+    {
+      "id": 42,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf40eb1171aabe90b1b3ce07c0c5.avif",
+      "title": "Четыре сыра классическая",
+      "types": [
+        1
+      ],
+      "sizes": [
+        40,
+        30,
+        26
+      ],
+      "price": 708,
+      "category": 3,
+      "rating": 1
+    },
+    {
+      "id": 43,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf57bc517218ab93c762f4b0193e.avif",
+      "title": "Мясная фреш",
+      "types": [
+        0
+      ],
+      "sizes": [
+        30
+      ],
+      "price": 625,
+      "category": 5,
+      "rating": 9
+    },
+    {
+      "id": 44,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf4624de7324966f2fc62c3ca673.avif",
+      "title": "Фирменная классическая",
+      "types": [
+        1
+      ],
+      "sizes": [
+        40
+      ],
+      "price": 560,
+      "category": 1,
+      "rating": 7
+    },
+    {
+      "id": 45,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf2cc87a79baa946c53b634615f4.avif",
+      "title": "Вегетарианская спешл",
+      "types": [
+        1
+      ],
+      "sizes": [
+        40,
+        26,
+        30
+      ],
+      "price": 662,
+      "category": 2,
+      "rating": 8
+    },
+    {
+      "id": 46,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf2e5d2973a4bf5ec61161496f91.avif",
+      "title": "Фирменная люкс",
+      "types": [
+        1
+      ],
+      "sizes": [
+        30,
+        40
+      ],
+      "price": 506,
+      "category": 3,
+      "rating": 4
+    },
+    {
+      "id": 47,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf5147f27780a3290a82692e7a36.avif",
+      "title": "Маргарита по-домашнему",
+      "types": [
+        1
+      ],
+      "sizes": [
+        40,
+        30,
+        26
+      ],
+      "price": 825,
+      "category": 3,
+      "rating": 8
+    },
+    {
+      "id": 48,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0197fa0f7ee07568a39ac9a8c2f8c827.avif",
+      "title": "Вегетарианская люкс",
+      "types": [
+        0
+      ],
+      "sizes": [
+        30,
+        26
+      ],
+      "price": 423,
+      "category": 2,
+      "rating": 5
+    },
+    {
+      "id": 49,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf29e76179b88bdbf2ec5527bba3.avif",
+      "title": "С креветками классическая",
+      "types": [
+        1,
+        0
+      ],
+      "sizes": [
+        26,
+        30
+      ],
+      "price": 760,
+      "category": 3,
+      "rating": 9
+    },
+    {
+      "id": 50,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf40eb1171aabe90b1b3ce07c0c5.avif",
+      "title": "Овощная классическая",
+      "types": [
+        1
+      ],
+      "sizes": [
+        40,
+        26,
+        30
+      ],
+      "price": 766,
+      "category": 3,
+      "rating": 7
+    },
+    {
+      "id": 51,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf57bc517218ab93c762f4b0193e.avif",
+      "title": "Гавайская по-домашнему",
+      "types": [
+        0,
+        1
+      ],
+      "sizes": [
+        30
+      ],
+      "price": 475,
+      "category": 4,
+      "rating": 4
+    },
+    {
+      "id": 52,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf3fab7976678d811111bb2e8cb9.avif",
+      "title": "Острая спешл",
+      "types": [
+        1
+      ],
+      "sizes": [
+        40
+      ],
+      "price": 415,
+      "category": 5,
+      "rating": 3
+    },
+    {
+      "id": 53,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf2e5d2973a4bf5ec61161496f91.avif",
+      "title": "Сырная люкс",
+      "types": [
+        0
+      ],
+      "sizes": [
+        26
+      ],
+      "price": 878,
+      "category": 3,
+      "rating": 4
+    },
+    {
+      "id": 54,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf29e76179b88bdbf2ec5527bba3.avif",
+      "title": "С тунцом по-домашнему",
+      "types": [
+        0
+      ],
+      "sizes": [
+        30,
+        26
+      ],
+      "price": 377,
+      "category": 5,
+      "rating": 7
+    },
+    {
+      "id": 55,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf40eb1171aabe90b1b3ce07c0c5.avif",
+      "title": "Салями люкс",
+      "types": [
+        0,
+        1
+      ],
+      "sizes": [
+        26,
+        30,
+        40
+      ],
+      "price": 505,
+      "category": 5,
+      "rating": 8
+    },
+    {
+      "id": 56,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0197fa0f7ee07568a39ac9a8c2f8c827.avif",
+      "title": "Острая классическая",
+      "types": [
+        1
+      ],
+      "sizes": [
+        26
+      ],
+      "price": 354,
+      "category": 5,
+      "rating": 1
+    },
+    {
+      "id": 57,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf5147f27780a3290a82692e7a36.avif",
+      "title": "С креветками фреш",
+      "types": [
+        0,
+        1
+      ],
+      "sizes": [
+        40
+      ],
+      "price": 313,
+      "category": 3,
+      "rating": 6
+    },
+    {
+      "id": 58,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0198bf2e5d2973a4bf5ec61161496f91.avif",
+      "title": "С ананасами спешл",
+      "types": [
+        0
+      ],
+      "sizes": [
+        26,
+        40,
+        30
+      ],
+      "price": 794,
+      "category": 4,
+      "rating": 10
+    },
+    {
+      "id": 59,
+      "imageUrl": "https://media.dodostatic.net/image/r:760x760/0197fa0f7ee07568a39ac9a8c2f8c827.avif",
+      "title": "С тунцом спешл",
+      "types": [
+        0,
+        1
+      ],
+      "sizes": [
+        30
+      ],
+      "price": 390,
+      "category": 1,
+      "rating": 9
+    }
+  ],
+
+  "toppings": [{"id":"1","name":"Сырный бортик","UrlTopping":"https://i.postimg.cc/Y21Nvqnh/cheese-Side.png","price":179},{"id":"2","name":"Пряная говядина","UrlTopping":"https://i.postimg.cc/gjD6NjQs/spicy-Beef.png","price":119},{"id":"3","name":"Моцарелла","UrlTopping":"https://i.postimg.cc/jSkPpW5k/Mozzarella.png","price":79},{"id":"4","name":"Сыры чеддер и пармезан","UrlTopping":"https://i.postimg.cc/Jhv3kyCB/cheddar-and-parmesan-cheeses.png","price":79},{"id":"5","name":"Острый перец халапеньо","UrlTopping":"https://i.postimg.cc/vHbrfFkX/Hot-Jalapeno-Pepper.png","price":59},{"id":"6","name":"Нежный цыпленок","UrlTopping":"https://i.postimg.cc/9Fm9zPwn/tender-chicken.png","price":79},{"id":"7","name":"Шампиньоны","UrlTopping":"https://i.postimg.cc/7ZPN88Nb/champignons.png","price":59},{"id":"8","name":"Бекон","UrlTopping":"https://i.postimg.cc/VkwVJVWc/bacon.png","price":79},{"id":"9","name":"Ветчина","UrlTopping":"https://i.postimg.cc/0jqpVLQk/ham.png","price":79},{"id":"10","name":"Пикантная пеперони","UrlTopping":"https://i.postimg.cc/BvLH4qPZ/pecan-pepperoni.png","price":79},{"id":"11","name":"Острая чоризо","UrlTopping":"https://i.postimg.cc/wMcDZ0yh/hot-chorizo.png","price":79},{"id":"12","name":"Маринованные огурчики","UrlTopping":"https://i.postimg.cc/MGCRGh17/pickles.png","price":59},{"id":"13","name":"Свежие томаты","UrlTopping":"https://i.postimg.cc/vH0Vn1WH/tomatoes.png","price":59},{"id":"14","name":"Красный лук","UrlTopping":"https://i.postimg.cc/1tDFVJKL/red-onion.png","price":59},{"id":"15","name":"Сочные ананасы","UrlTopping":"https://i.postimg.cc/t4gFvdXx/juicy-pineapples.png","price":59},{"id":"16","name":"Итальянские травы","UrlTopping":"https://i.postimg.cc/NfD1xCwt/italian-herbs.png","price":39},{"id":"17","name":"Сладкий перец","UrlTopping":"https://i.postimg.cc/NG7TgCFX/sweet-pepper.png","price":59},{"id":"18","name":"Кубики брынзы","UrlTopping":"https://i.postimg.cc/fLdcjwMq/cheese-cubes.png","price":79},{"id":"19","name":"Баварские колбаски","UrlTopping":"https://i.postimg.cc/FHPVhWPp/Bavarian-sausages.png","price":129},{"id":"20","name":"креветки","UrlTopping":"https://i.postimg.cc/ZnZd8p70/shrimps.png","price":199},{"id":"21","name":"Сыр блю чиз","UrlTopping":"https://i.postimg.cc/CKzH5GXg/blue-cheese.png","price":149}]
 }
