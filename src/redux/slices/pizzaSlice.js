@@ -3,14 +3,22 @@ import axios from "axios";
 
 const SLICE_NAME = "pizza";
 
-// TODO order to -sort value
+export const fetchTotalCount = createAsyncThunk(
+  `${SLICE_NAME}/fetchTotalCount`,
+  async ({ category }) => {
+    const { data } = await axios.get("http://localhost:4000/products", {
+      params: { category },
+    });
+    return data.length;
+  },
+);
+
 export const fetchPizzas = createAsyncThunk(
-  `${SLICE_NAME}/fetchPizzasStatus`,
-  async ({ category, sortBy, order }, thunkAPI) => {
-    const { data } = await axios.get(
-      `http://localhost:4000/products`,
-        {params: { category, _sort: sortBy, _order: order}}
-    );
+  `${SLICE_NAME}/fetchPizzas`,
+  async ({ category, sortType, page, limit }) => {
+    const { data } = await axios.get("http://localhost:4000/products", {
+      params: { category, _sort: sortType, _page: page, _limit: limit },
+    });
     return data;
   },
 );
@@ -18,6 +26,9 @@ export const fetchPizzas = createAsyncThunk(
 const initialState = {
   items: [],
   status: "loading",
+  page: 1,
+  limit: 10,
+  totalCount: 0,
 };
 
 export const pizzaSlice = createSlice({
@@ -27,24 +38,31 @@ export const pizzaSlice = createSlice({
     setItems: (state, action) => {
       state.items = action.payload;
     },
+    setPage: (state, action) => {
+      state.page = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(fetchPizzas.pending, (state) => {
         state.status = "loading";
-        state.items = [];
       })
       .addCase(fetchPizzas.fulfilled, (state, action) => {
-        state.items = action.payload;
         state.status = "success";
+        if (state.page === 1) {
+          state.items = action.payload;
+        } else {
+          state.items = [...state.items, ...action.payload];
+        }
       })
       .addCase(fetchPizzas.rejected, (state) => {
         state.status = "error";
-        state.items = [];
+      })
+      .addCase(fetchTotalCount.fulfilled, (state, action) => {
+        state.totalCount = action.payload;
       });
   },
 });
 
-export const { setItems } = pizzaSlice.actions;
-
+export const { setItems, setPage } = pizzaSlice.actions;
 export default pizzaSlice.reducer;

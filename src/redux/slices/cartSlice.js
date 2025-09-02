@@ -57,7 +57,6 @@ export const cartSlice = createSlice({
           ),
       );
 
-      // Пересчитываем счетчики
       state.countPizzaCart = state.items.reduce(
         (total, item) => total + item.count,
         0,
@@ -108,7 +107,6 @@ export const cartSlice = createSlice({
       if (item && item.count > 1) {
         item.count--;
       } else if (item) {
-        // Удаляем только эту конкретную позицию
         state.items = state.items.filter(
           (obj) =>
             !(

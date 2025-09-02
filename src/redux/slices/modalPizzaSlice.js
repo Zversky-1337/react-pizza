@@ -1,21 +1,20 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
+export const fetchPizzaById = createAsyncThunk(
+  "modalPizza/fetchPizzaById",
+  async (id) => {
+    const { data } = await axios.get(`http://localhost:4000/products/${id}`);
+    return data;
+  },
+);
+
 export const fetchToppings = createAsyncThunk(
   "modalPizza/fetchToppings",
   async () => {
     const { data } = await axios.get("http://localhost:4000/toppings");
     return data;
   },
-);
-
-
-export const fetchPizzaById = createAsyncThunk(
-    "modalPizza/fetchPizzaById",
-    async (id) => {
-      const { data } = await axios.get("http://localhost:4000/products",{params: { id }});
-      return data;
-    },
 );
 
 const initialState = {
@@ -26,7 +25,6 @@ const initialState = {
   price: 0,
   toppings: [],
   modalError: null,
-  location: null,
 };
 
 export const modalPizzaSlice = createSlice({
@@ -34,13 +32,12 @@ export const modalPizzaSlice = createSlice({
   initialState,
   reducers: {
     setSelectedPizza: (state, action) => {
-      console.log(action, 'action');
-      state.selectedPizza = action.payload;
-      state.price = action.payload ? action.payload.price : 0;
+      const pizza = action.payload;
+      state.selectedPizza = pizza;
+      state.price = pizza ? pizza.price : 0;
       state.activeSize = 0;
       state.activeType = 0;
       state.selectedToppings = [];
-      state.location = action.payload.location || null;
     },
     setActiveType: (state, action) => {
       state.activeType = action.payload;
@@ -63,6 +60,21 @@ export const modalPizzaSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(fetchPizzaById.pending, (state) => {
+        state.modalError = null;
+        state.selectedPizza = null;
+      })
+      .addCase(fetchPizzaById.fulfilled, (state, action) => {
+        state.selectedPizza = action.payload;
+        state.price = action.payload.price;
+        state.activeSize = 0;
+        state.activeType = 0;
+        state.selectedToppings = [];
+      })
+      .addCase(fetchPizzaById.rejected, (state) => {
+        state.modalError = "Ошибка при загрузке пиццы";
+        state.selectedPizza = null;
+      })
       .addCase(fetchToppings.pending, (state) => {
         state.modalError = null;
       })

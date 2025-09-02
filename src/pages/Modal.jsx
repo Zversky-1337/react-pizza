@@ -1,41 +1,52 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import ModalPizza from "../modal/ModalPizza.jsx";
 import styles from "./Modal.module.scss";
-import {useNavigate} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {fetchToppings, setSelectedPizza,} from "../redux/slices/modalPizzaSlice.js";
+import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchPizzaById,
+  fetchToppings,
+  setSelectedPizza,
+} from "../redux/slices/modalPizzaSlice.js";
 
-const Modal = ({ id }) => {
+const Modal = () => {
+  const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const {selectedPizza} = useSelector((state) => state.modalPizza);
+  const { selectedPizza, modalError } = useSelector(
+    (state) => state.modalPizza,
+  );
 
-  // TODO fetch pizza by id if not in state
   useEffect(() => {
-    if (!id) return;
-    // fetch
+    if (id) {
+      dispatch(fetchPizzaById(id));
+    }
   }, [id, dispatch]);
 
   useEffect(() => {
-    if (!selectedPizza) return;
-    dispatch(fetchToppings());
+    if (selectedPizza) {
+      dispatch(fetchToppings());
+    }
   }, [selectedPizza, dispatch]);
 
-  if (!selectedPizza) return <p>Пицца не выбрана</p>;
+  if (modalError) return <p>{modalError}</p>;
+  if (!selectedPizza) return <p>Загрузка пиццы...</p>;
 
   const closeModal = () => {
-    navigate("/", { replace: true });
+    if (location.state?.background) {
+      navigate(-1);
+    } else {
+      navigate("/", { replace: true });
+    }
     dispatch(setSelectedPizza(null));
   };
 
   return (
-    <>
-      <div className={styles.overlay} onClick={closeModal}>
-        <div className={styles.card} onClick={(e) => e.stopPropagation()}>
-          <ModalPizza />
-        </div>
+    <div className={styles.overlay} onClick={closeModal}>
+      <div className={styles.card} onClick={(e) => e.stopPropagation()}>
+        <ModalPizza />
       </div>
-    </>
+    </div>
   );
 };
 

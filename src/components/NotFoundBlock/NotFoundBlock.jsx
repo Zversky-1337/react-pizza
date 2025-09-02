@@ -1,6 +1,12 @@
+import { useLocation } from "react-router-dom";
 import styles from "./NotFound.module.scss";
 
 const NotFoundBlock = () => {
+  const location = useLocation();
+
+  // Если открыта модалка, не показываем NotFound
+  if (location.pathname.startsWith("/modal/")) return null;
+
   return (
     <div className={styles.root}>
       <h1>
