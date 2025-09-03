@@ -1,25 +1,25 @@
 import React, { useEffect, useRef } from "react";
-import PizzaBlock from "../components/PizzaBlock/PizzaBlock";
-import Skeleton from "../components/PizzaBlock/Skeleton";
-import { useDispatch, useSelector } from "react-redux";
-import Filter from "../components/Filter.jsx";
+import PizzaBlock from "../components/PizzaBlock/PizzaBlock.js";
+import Skeleton from "../components/PizzaBlock/Skeleton.js";
+import Filter from "../components/Filter.tsx";
 import {
   fetchPizzas,
   fetchTotalCount,
   setPage,
   setItems,
-} from "../redux/slices/pizzaSlice.js";
+} from "../redux/slices/pizzaSlice.ts";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../hooks/redux.ts";
 
-const Home = () => {
-  const dispatch = useDispatch();
+const Home: React.FC = () => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { items, status, page, limit, totalCount } = useSelector(
+  const { items, status, page, limit, totalCount } = useAppSelector(
     (state) => state.pizza,
   );
-  const { categoryId, sort, searchValue } = useSelector(
+  const { categoryId, sort, searchValue } = useAppSelector(
     (state) => state.filter,
   );
   const sortType = sort.sortProperty;

@@ -1,14 +1,14 @@
 import logoPizza from "../assets/img/pizza-logo.svg";
 import { Link, useLocation } from "react-router-dom";
-import Search from "./Search/Search.jsx";
-import { useDispatch, useSelector } from "react-redux";
-import { setFilters } from "../redux/slices/filterSlice.js";
-import { arrSortName } from "./Sort.jsx";
-import { selectCart } from "../redux/slices/cartSlice.js";
+import Search from "./Search/Search.tsx";
+import { setFilters } from "../redux/slices/filterSlice.ts";
+import { arrSortName } from "./Sort.tsx";
+import { selectCart } from "../redux/slices/cartSlice.ts";
+import { useAppDispatch, useAppSelector } from "../hooks/redux.ts";
 
 const Header = () => {
-  const dispatch = useDispatch();
-  const { totalPrice, countPizzaCart } = useSelector(selectCart);
+  const dispatch = useAppDispatch();
+  const { totalPrice, countPizzaCart } = useAppSelector(selectCart);
   const { pathname } = useLocation();
 
   const onClickLogo = () => {

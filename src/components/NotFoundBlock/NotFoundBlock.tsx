@@ -1,7 +1,8 @@
 import { useLocation } from "react-router-dom";
 import styles from "./NotFound.module.scss";
+import React from "react";
 
-const NotFoundBlock = () => {
+const NotFoundBlock: React.FC = () => {
   const location = useLocation();
 
   // Если открыта модалка, не показываем NotFound

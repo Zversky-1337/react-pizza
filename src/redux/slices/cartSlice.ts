@@ -1,16 +1,33 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import type { RootState } from "../store.ts";
+import type { CartItemType, CartState } from "../../types/types.ts";
 
-const initialState = {
+export type CartItemInput = Omit<CartItemType, "count">;
+
+export type CartKey = Pick<CartItemType, "id" | "type" | "size" | "price">;
+
+const initialState: CartState = {
   totalPrice: 0,
   items: [],
   countPizzaCart: 0,
+};
+
+const recalcTotals = (state: CartState) => {
+  state.countPizzaCart = state.items.reduce(
+    (total, item) => total + item.count,
+    0,
+  );
+  state.totalPrice = state.items.reduce(
+    (sum, obj) => sum + obj.price * obj.count,
+    0,
+  );
 };
 
 export const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    addItem(state, action) {
+    addItem(state, action: PayloadAction<CartItemInput>) {
       const findItem = state.items.find(
         (obj) =>
           obj.id === action.payload.id &&
@@ -22,21 +39,11 @@ export const cartSlice = createSlice({
         ? findItem.count++
         : state.items.push({ ...action.payload, count: 1 });
 
-      state.totalPrice = state.items.reduce(
-        (sum, obj) => sum + obj.price * obj.count,
-        0,
-      );
-      state.countPizzaCart = state.items.reduce(
-        (total, item) => total + item.count,
-        0,
-      );
+      recalcTotals(state);
     },
-    removeItem(state, action) {
+    removeItem(state, action: PayloadAction<number>) {
       state.items = state.items.filter((item) => item.id !== action.payload);
-      state.countPizzaCart = state.items.reduce(
-        (total, item) => total + item.count,
-        0,
-      );
+      recalcTotals(state);
     },
     clearItems(state) {
       state.items = [];
@@ -44,7 +51,7 @@ export const cartSlice = createSlice({
       state.totalPrice = 0;
     },
 
-    clearPosition(state, action) {
+    clearPosition(state, action: PayloadAction<CartKey>) {
       const { id, type, size, price } = action.payload;
 
       state.items = state.items.filter(
@@ -57,17 +64,10 @@ export const cartSlice = createSlice({
           ),
       );
 
-      state.countPizzaCart = state.items.reduce(
-        (total, item) => total + item.count,
-        0,
-      );
-      state.totalPrice = state.items.reduce(
-        (sum, item) => sum + item.price * item.count,
-        0,
-      );
+      recalcTotals(state);
     },
 
-    incrementItem(state, action) {
+    incrementItem(state, action: PayloadAction<CartKey>) {
       const { id, type, size, price } = action.payload;
 
       const item = state.items.find(
@@ -83,17 +83,10 @@ export const cartSlice = createSlice({
       }
 
       // пересчёт
-      state.countPizzaCart = state.items.reduce(
-        (total, item) => total + item.count,
-        0,
-      );
-      state.totalPrice = state.items.reduce(
-        (sum, obj) => sum + obj.price * obj.count,
-        0,
-      );
+      recalcTotals(state);
     },
 
-    decrementItem(state, action) {
+    decrementItem(state, action: PayloadAction<CartKey>) {
       const { id, type, size, price } = action.payload;
 
       const item = state.items.find(
@@ -119,19 +112,12 @@ export const cartSlice = createSlice({
       }
 
       // Пересчитываем счетчики
-      state.countPizzaCart = state.items.reduce(
-        (total, item) => total + item.count,
-        0,
-      );
-      state.totalPrice = state.items.reduce(
-        (sum, obj) => sum + obj.price * obj.count,
-        0,
-      );
+      recalcTotals(state);
     },
   },
 });
 
-export const selectCart = (state) => state.cart;
+export const selectCart = (state: RootState) => state.cart;
 
 export const {
   clearPosition,

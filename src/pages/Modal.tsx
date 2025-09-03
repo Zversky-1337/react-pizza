@@ -1,19 +1,28 @@
 import React, { useEffect } from "react";
-import ModalPizza from "../modal/ModalPizza.jsx";
+import ModalPizza from "../modal/ModalPizza.tsx";
 import styles from "./Modal.module.scss";
-import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import {
   fetchPizzaById,
   fetchToppings,
   setSelectedPizza,
-} from "../redux/slices/modalPizzaSlice.js";
+} from "../redux/slices/modalPizzaSlice.ts";
+import { useAppDispatch, useAppSelector } from "../hooks/redux.ts";
+import type { Pizza } from "../types/types.ts";
 
-const Modal = () => {
-  const { id } = useParams();
+interface LocationState {
+  background?: Location;
+  pizza?: Pizza;
+}
+
+const Modal: React.FC = () => {
+  const location = useLocation();
+  const state = location.state as LocationState | null;
+
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { selectedPizza, modalError } = useSelector(
+  const dispatch = useAppDispatch();
+  const { selectedPizza, modalError } = useAppSelector(
     (state) => state.modalPizza,
   );
 
@@ -33,7 +42,7 @@ const Modal = () => {
   if (!selectedPizza) return <p>Загрузка пиццы...</p>;
 
   const closeModal = () => {
-    if (location.state?.background) {
+    if (state?.background) {
       navigate(-1);
     } else {
       navigate("/", { replace: true });

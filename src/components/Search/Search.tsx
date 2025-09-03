@@ -1,7 +1,7 @@
 import React, { useContext, useRef } from "react";
 import styles from "./Search.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { setSearchValue } from "../../redux/slices/filterSlice.js";
+import { setSearchValue } from "../../redux/slices/filterSlice.ts";
 
 const Search = () => {
   const searchValue = useSelector((state) => state.filter.searchValue);

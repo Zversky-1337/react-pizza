@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { setSort } from "../redux/slices/filterSlice.js";
+import { setSort } from "../redux/slices/filterSlice.ts";
+import { useAppDispatch, useAppSelector } from "../hooks/redux.ts";
+import type { ArrSortState } from "../types/types.ts";
 
-export const arrSortName = [
+export const arrSortName: ArrSortState[] = [
   { name: "популярности (убыв.)", sortProperty: "-rating" },
   { name: "популярности (возр.)", sortProperty: "rating" },
   { name: "цене (убыв.)", sortProperty: "-price" },
@@ -11,24 +12,22 @@ export const arrSortName = [
   { name: "алфавиту (Я-А)", sortProperty: "-title" },
 ];
 
-const Sort = () => {
-  const sort = useSelector((state) => state.filter.sort);
-  const dispatch = useDispatch();
+const Sort: React.FC = () => {
+  const sort = useAppSelector((state) => state.filter.sort);
+  const dispatch = useAppDispatch();
 
-  const sortRef = useRef(null);
+  const sortRef = useRef<HTMLDivElement>(null);
 
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState<boolean>(false);
 
-  const onClickListItem = (obj) => {
+  const onClickListItem = (obj: ArrSortState) => {
     dispatch(setSort(obj));
     setIsVisible(false);
   };
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      // получаем путь события
-      const path = event.composedPath ? event.composedPath() : [];
-      if (!path.includes(sortRef.current)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (sortRef.current && !sortRef.current.contains(event.target as Node)) {
         setIsVisible(false);
       }
     };

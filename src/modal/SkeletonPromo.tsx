@@ -1,7 +1,7 @@
 import React from "react";
 import ContentLoader from "react-content-loader";
 
-const SkeletonPromo = (props) => (
+const SkeletonPromo: React.FC = (props) => (
   <ContentLoader
     speed={2}
     width="100%"

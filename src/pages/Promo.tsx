@@ -1,19 +1,18 @@
 import React, { useEffect } from "react";
 import styles from "./Promo.module.scss";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchPromo } from "../redux/slices/promoSlice.js";
-import SkeletonPromo from "../modal/SkeletonPromo.jsx";
+import { fetchPromo } from "../redux/slices/promoSlice.ts";
+import SkeletonPromo from "../modal/SkeletonPromo.tsx";
+import { useAppDispatch, useAppSelector } from "../hooks/redux.ts";
 
-const Promo = () => {
-  const dispatch = useDispatch();
-  const { promo, status } = useSelector((state) => state.promo);
+const Promo: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const { promo, status } = useAppSelector((state) => state.promo);
 
   useEffect(() => {
     dispatch(fetchPromo());
   }, [dispatch]);
 
-  // TODO skeleton to loading
   if (status === "error") return <p>Ошибка при загрузке промо.</p>;
 
   const promoCompany = promo.map((obj) => (

@@ -1,10 +1,19 @@
-import { useDispatch } from "react-redux";
-import { setSearchValue } from "../redux/slices/filterSlice.js";
+import { setSearchValue } from "../redux/slices/filterSlice.ts";
+import { useAppDispatch } from "../hooks/redux.ts";
+import React from "react";
 
-const Catigories = ({ categoryId, onClickCategory }) => {
-  const dispatch = useDispatch();
+interface CategoriesProps {
+  categoryId: number;
+  onClickCategory: (id: number) => void;
+}
 
-  const catigories = [
+const Catigories: React.FC<CategoriesProps> = ({
+  categoryId,
+  onClickCategory,
+}) => {
+  const dispatch = useAppDispatch();
+
+  const catigories: string[] = [
     "Все",
     "Мясные",
     "Вегетарианская",

@@ -1,15 +1,16 @@
 import styles from "./ModalPizza.module.scss";
-import { useDispatch, useSelector } from "react-redux";
-import { addItem } from "../redux/slices/cartSlice.js";
+import { addItem } from "../redux/slices/cartSlice.ts";
 import { useNavigate } from "react-router-dom";
 import {
   setActiveSize,
   setActiveType,
   toggleTopping,
-} from "../redux/slices/modalPizzaSlice.js";
+} from "../redux/slices/modalPizzaSlice.ts";
+import { useAppDispatch, useAppSelector } from "../hooks/redux.ts";
+import React from "react";
 
-const ModalPizza = () => {
-  const dispatch = useDispatch();
+const ModalPizza: React.FC = () => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const {
@@ -20,11 +21,11 @@ const ModalPizza = () => {
     price,
     toppings,
     modalError,
-  } = useSelector((state) => state.modalPizza);
+  } = useAppSelector((state) => state.modalPizza);
 
   if (!pizza) return null;
 
-  const typeNames = ["тонкое", "традиционное"];
+  const typeNames: string[] = ["тонкое", "традиционное"];
 
   const onClickAdd = () => {
     const item = {

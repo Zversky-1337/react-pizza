@@ -1,9 +1,22 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import {
+  createAsyncThunk,
+  createSlice,
+  type PayloadAction,
+} from "@reduxjs/toolkit";
 import axios from "axios";
+import type { Pizza } from "../../types/types.ts";
+
+interface PizzaState {
+  items: Pizza[];
+  status: "loading" | "success" | "error";
+  page: number;
+  limit: number;
+  totalCount: number;
+}
 
 const SLICE_NAME = "pizza";
 
-export const fetchTotalCount = createAsyncThunk(
+export const fetchTotalCount = createAsyncThunk<number, { category?: number }>(
   `${SLICE_NAME}/fetchTotalCount`,
   async ({ category }) => {
     const { data } = await axios.get("http://localhost:4000/products", {
@@ -13,17 +26,17 @@ export const fetchTotalCount = createAsyncThunk(
   },
 );
 
-export const fetchPizzas = createAsyncThunk(
-  `${SLICE_NAME}/fetchPizzas`,
-  async ({ category, sortType, page, limit }) => {
-    const { data } = await axios.get("http://localhost:4000/products", {
-      params: { category, _sort: sortType, _page: page, _limit: limit },
-    });
-    return data;
-  },
-);
+export const fetchPizzas = createAsyncThunk<
+  Pizza[],
+  { category?: number; sortType?: string; page: number; limit: number }
+>(`${SLICE_NAME}/fetchPizzas`, async ({ category, sortType, page, limit }) => {
+  const { data } = await axios.get("http://localhost:4000/products", {
+    params: { category, _sort: sortType, _page: page, _limit: limit },
+  });
+  return data;
+});
 
-const initialState = {
+const initialState: PizzaState = {
   items: [],
   status: "loading",
   page: 1,
@@ -35,10 +48,10 @@ export const pizzaSlice = createSlice({
   name: SLICE_NAME,
   initialState,
   reducers: {
-    setItems: (state, action) => {
+    setItems: (state, action: PayloadAction<Pizza[]>) => {
       state.items = action.payload;
     },
-    setPage: (state, action) => {
+    setPage: (state, action: PayloadAction<number>) => {
       state.page = action.payload;
     },
   },

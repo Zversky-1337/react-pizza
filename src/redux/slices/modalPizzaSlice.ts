@@ -1,7 +1,22 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import {
+  createAsyncThunk,
+  createSlice,
+  type PayloadAction,
+} from "@reduxjs/toolkit";
 import axios from "axios";
+import type { Pizza, Topping } from "../../types/types.ts";
 
-export const fetchPizzaById = createAsyncThunk(
+export interface ModalPizzaState {
+  selectedPizza: null | Pizza;
+  activeType: number;
+  activeSize: number;
+  selectedToppings: number[];
+  price: number;
+  toppings: Topping[];
+  modalError: string | null | undefined;
+}
+
+export const fetchPizzaById = createAsyncThunk<Pizza, string>(
   "modalPizza/fetchPizzaById",
   async (id) => {
     const { data } = await axios.get(`http://localhost:4000/products/${id}`);
@@ -9,7 +24,7 @@ export const fetchPizzaById = createAsyncThunk(
   },
 );
 
-export const fetchToppings = createAsyncThunk(
+export const fetchToppings = createAsyncThunk<Topping[]>(
   "modalPizza/fetchToppings",
   async () => {
     const { data } = await axios.get("http://localhost:4000/toppings");
@@ -17,7 +32,7 @@ export const fetchToppings = createAsyncThunk(
   },
 );
 
-const initialState = {
+const initialState: ModalPizzaState = {
   selectedPizza: null,
   activeType: 0,
   activeSize: 0,
@@ -31,7 +46,7 @@ export const modalPizzaSlice = createSlice({
   name: "modalPizza",
   initialState,
   reducers: {
-    setSelectedPizza: (state, action) => {
+    setSelectedPizza: (state, action: PayloadAction<Pizza | null>) => {
       const pizza = action.payload;
       state.selectedPizza = pizza;
       state.price = pizza ? pizza.price : 0;
@@ -39,13 +54,13 @@ export const modalPizzaSlice = createSlice({
       state.activeType = 0;
       state.selectedToppings = [];
     },
-    setActiveType: (state, action) => {
+    setActiveType: (state, action: PayloadAction<number>) => {
       state.activeType = action.payload;
     },
-    setActiveSize: (state, action) => {
+    setActiveSize: (state, action: PayloadAction<number>) => {
       state.activeSize = action.payload;
     },
-    toggleTopping: (state, action) => {
+    toggleTopping: (state, action: PayloadAction<Topping>) => {
       const topping = action.payload;
       if (state.selectedToppings.includes(topping.id)) {
         state.selectedToppings = state.selectedToppings.filter(
