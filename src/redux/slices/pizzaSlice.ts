@@ -1,6 +1,6 @@
 import {
-  createAsyncThunk,
   createSlice,
+  createAsyncThunk,
   type PayloadAction,
 } from "@reduxjs/toolkit";
 import axios from "axios";
@@ -14,27 +14,57 @@ interface PizzaState {
   totalCount: number;
 }
 
+interface FetchPizzasParams {
+  category?: number;
+  sortType?: string;
+  page: number;
+  limit: number;
+  search?: string;
+}
+
+interface FetchPizzasResponse {
+  pizzas: Pizza[];
+  totalCount: number;
+}
+
 const SLICE_NAME = "pizza";
 
-export const fetchTotalCount = createAsyncThunk<number, { category?: number }>(
-  `${SLICE_NAME}/fetchTotalCount`,
-  async ({ category }) => {
-    const { data } = await axios.get("http://localhost:4000/products", {
-      params: { category },
-    });
-    return data.length;
+export const fetchPizzas = createAsyncThunk<
+  FetchPizzasResponse,
+  FetchPizzasParams
+>(
+  `${SLICE_NAME}/fetchPizzas`,
+  async ({ category, sortType, page, limit, search }) => {
+    // Типизация параметров запроса
+    const params: {
+      category?: number;
+      _sort?: string;
+      _page?: number;
+      per_page?: number;
+      _limit?: number;
+    } = { category, _sort: sortType };
+
+    if (search) {
+      // При поиске получаем все пиццы без пагинации
+      params._limit = 1000; // или любое большое число
+    } else {
+      params._page = page;
+      params.per_page = limit;
+    }
+
+    const res = await axios.get("http://localhost:4001/products", { params });
+
+    const pizzas: Pizza[] = res.data.data ?? res.data;
+    const totalCount = search
+      ? pizzas.length
+      : (res.data.items ?? pizzas.length);
+
+    console.log(pizzas);
+    console.log(totalCount);
+
+    return { pizzas, totalCount };
   },
 );
-
-export const fetchPizzas = createAsyncThunk<
-  Pizza[],
-  { category?: number; sortType?: string; page: number; limit: number }
->(`${SLICE_NAME}/fetchPizzas`, async ({ category, sortType, page, limit }) => {
-  const { data } = await axios.get("http://localhost:4000/products", {
-    params: { category, _sort: sortType, _page: page, _limit: limit },
-  });
-  return data;
-});
 
 const initialState: PizzaState = {
   items: [],
@@ -62,17 +92,14 @@ export const pizzaSlice = createSlice({
       })
       .addCase(fetchPizzas.fulfilled, (state, action) => {
         state.status = "success";
-        if (state.page === 1) {
-          state.items = action.payload;
-        } else {
-          state.items = [...state.items, ...action.payload];
-        }
+        state.items =
+          state.page === 1 || !!action.meta.arg.search
+            ? action.payload.pizzas
+            : [...state.items, ...action.payload.pizzas];
+        state.totalCount = action.payload.totalCount;
       })
       .addCase(fetchPizzas.rejected, (state) => {
         state.status = "error";
-      })
-      .addCase(fetchTotalCount.fulfilled, (state, action) => {
-        state.totalCount = action.payload;
       });
   },
 });

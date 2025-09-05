@@ -20,7 +20,7 @@ export interface PromoState {
 export const fetchPromo = createAsyncThunk<ObjPromo[]>(
   "promo/fetchPromo",
   async () => {
-    const { data } = await axios.get<ObjPromo[]>("http://localhost:4000/promo");
+    const { data } = await axios.get<ObjPromo[]>("http://localhost:4001/promo");
     return data;
   },
 );

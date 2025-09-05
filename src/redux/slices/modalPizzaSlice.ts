@@ -19,7 +19,7 @@ export interface ModalPizzaState {
 export const fetchPizzaById = createAsyncThunk<Pizza, string>(
   "modalPizza/fetchPizzaById",
   async (id) => {
-    const { data } = await axios.get(`http://localhost:4000/products/${id}`);
+    const { data } = await axios.get(`http://localhost:4001/products/${id}`);
     return data;
   },
 );
@@ -27,7 +27,7 @@ export const fetchPizzaById = createAsyncThunk<Pizza, string>(
 export const fetchToppings = createAsyncThunk<Topping[]>(
   "modalPizza/fetchToppings",
   async () => {
-    const { data } = await axios.get("http://localhost:4000/toppings");
+    const { data } = await axios.get("http://localhost:4001/toppings");
     return data;
   },
 );

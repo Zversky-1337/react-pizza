@@ -4,6 +4,9 @@ import cart from "./slices/cartSlice.ts";
 import pizza from "./slices/pizzaSlice.ts";
 import modalPizza from "./slices/modalPizzaSlice.ts";
 import promo from "./slices/promoSlice.ts";
+import payment from "./slices/paymentSlice.ts";
+import orderHistory from "./slices/orderHistorySlice.ts";
+import personalData from "./slices/personalDataSlice.ts";
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +15,9 @@ export const store = configureStore({
     pizza,
     modalPizza,
     promo,
+    payment,
+    orderHistory,
+    personalData,
   },
 });
 

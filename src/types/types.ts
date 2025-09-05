@@ -29,6 +29,8 @@ export interface CartState {
   totalPrice: number;
   items: CartItemType[];
   countPizzaCart: number;
+  status: string;
+  error: string | null;
 }
 
 export interface ArrSortState {

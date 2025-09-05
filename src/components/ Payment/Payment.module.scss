@@ -1,0 +1,128 @@
+.paymentContainer {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  font-family: 'Arial', sans-serif;
+
+  h2 {
+    text-align: center;
+    margin-bottom: 24px;
+    font-size: 28px;
+    color: #333;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  input {
+    margin-top: 8px;
+    padding: 12px 14px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+
+    &:focus {
+      outline: none;
+      border-color: #ff6b00;
+    }
+  }
+
+  .cardList {
+    margin-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .cardItem {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    position: relative;
+  }
+
+  .cardIcon {
+    font-size: 22px;
+  }
+
+  .cardNumber {
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    color: #333;
+    flex: 1;
+  }
+
+  .deleteButton {
+    background: none;
+    border: none;
+    color: #ff3b30; // яркий красный
+    font-size: 22px; // оставляем исходный размер шрифта
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0; // чтобы не увеличивать высоту блока
+    line-height: 1;
+    transition: color 0.2s, transform 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 5px;
+
+    transform: scale(2.1); // увеличиваем визуально в 2 раза
+
+    &:hover {
+      color: #ff0000; // ещё ярче при наведении
+      transform: scale(2.3); // слегка больше при ховере
+    }
+  }
+
+  .noCards {
+    font-size: 16px;
+    color: #777;
+    text-align: center;
+  }
+
+  button {
+    padding: 12px;
+    font-weight: bold;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+
+    &.addButton {
+      background-color: #ff6b00;
+      color: #fff;
+
+      &:hover {
+        background-color: #e65c00;
+      }
+    }
+
+    &.saveButton {
+      background-color: #4caf50;
+      color: #fff;
+
+      &:hover {
+        background-color: #43a047;
+      }
+    }
+  }
+
+  .error {
+    margin-top: -8px;
+    color: #e53935;
+    font-size: 15px;
+  }
+}

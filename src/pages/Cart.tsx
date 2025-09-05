@@ -1,13 +1,14 @@
 import { Link } from "react-router-dom";
 import CartItem from "../components/CartItem.tsx";
-import { clearItems, selectCart } from "../redux/slices/cartSlice.ts";
+import { clearItems, payOrder, selectCart } from "../redux/slices/cartSlice.ts";
 import CartEmpty from "../components/CartEmpty.tsx";
 import { useAppDispatch, useAppSelector } from "../hooks/redux.ts";
 import React from "react";
 
 const Cart: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { items, totalPrice, countPizzaCart } = useAppSelector(selectCart);
+  const { items, totalPrice, countPizzaCart, status, error } =
+    useAppSelector(selectCart);
 
   const clearCart = () => {
     dispatch(clearItems());
@@ -16,6 +17,10 @@ const Cart: React.FC = () => {
   if (!countPizzaCart) {
     return <CartEmpty />;
   }
+
+  const handlePayNow = () => {
+    dispatch(payOrder());
+  };
 
   return (
     <div className="wrapper">
@@ -134,9 +139,10 @@ const Cart: React.FC = () => {
                 Вернуться назад
               </Link>
 
-              <div className="button pay-btn">
-                <span>Оплатить сейчас</span>
+              <div className="button pay-btn" onClick={handlePayNow}>
+                {status === "loading" ? "Оплата..." : "Оплатить сейчас"}
               </div>
+              {status === "failed" && <p style={{ color: "red" }}>{error}</p>}
             </div>
           </div>
         </div>

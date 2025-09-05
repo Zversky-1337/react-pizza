@@ -1,15 +1,11 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import PizzaBlock from "../components/PizzaBlock/PizzaBlock.js";
 import Skeleton from "../components/PizzaBlock/Skeleton.js";
 import Filter from "../components/Filter.tsx";
-import {
-  fetchPizzas,
-  fetchTotalCount,
-  setPage,
-  setItems,
-} from "../redux/slices/pizzaSlice.ts";
+import { fetchPizzas, setPage, setItems } from "../redux/slices/pizzaSlice.ts";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../hooks/redux.ts";
+import { useInfiniteScroll } from "../hooks/useInfiniteScroll.ts";
 
 const Home: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -24,43 +20,28 @@ const Home: React.FC = () => {
   );
   const sortType = sort.sortProperty;
 
-  const isFetching = useRef(false);
-
+  // Сброс при смене фильтра, сортировки или поиска
   useEffect(() => {
     dispatch(setPage(1));
     dispatch(setItems([]));
-  }, [categoryId, sortType, dispatch]);
+  }, [categoryId, sortType, searchValue, dispatch]);
 
+  // Загрузка пицц
   useEffect(() => {
     const category = categoryId > 0 ? categoryId : undefined;
+    dispatch(
+      fetchPizzas({ category, sortType, page, limit, search: searchValue }),
+    );
+  }, [categoryId, sortType, page, limit, searchValue, dispatch]);
 
-    dispatch(fetchTotalCount({ category }));
+  // Бесконечная прокрутка (только если нет поиска)
+  useInfiniteScroll({
+    fetchMore: () => dispatch(setPage(page + 1)),
+    hasMore: !searchValue && items.length < totalCount,
+    loading: status === "loading",
+  });
 
-    dispatch(fetchPizzas({ category, sortType, page, limit }));
-  }, [categoryId, sortType, page, limit, dispatch]);
-
-  // Бесконечный скролл
-  useEffect(() => {
-    const handleScroll = () => {
-      const nearBottom =
-        window.innerHeight + window.scrollY >= document.body.offsetHeight - 200;
-
-      if (nearBottom && !isFetching.current && items.length < totalCount) {
-        isFetching.current = true;
-        dispatch(setPage(page + 1));
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [dispatch, items.length, totalCount, page]);
-
-  useEffect(() => {
-    if (status === "success" || status === "error") {
-      isFetching.current = false;
-    }
-  }, [status]);
-
+  // Фильтрация локально, если есть searchValue
   const pizzas = items
     .filter((obj) =>
       obj.title.toLowerCase().includes(searchValue.toLowerCase()),
@@ -78,8 +59,6 @@ const Home: React.FC = () => {
       </div>
     ));
 
-  const skeletons = [...new Array(6)].map((_, i) => <Skeleton key={i} />);
-
   return (
     <div className="container">
       <Filter />
@@ -89,7 +68,8 @@ const Home: React.FC = () => {
       ) : (
         <div className="content__items">
           {pizzas}
-          {status === "loading" && skeletons}
+          {status === "loading" &&
+            [...Array(6)].map((_, i) => <Skeleton key={i} />)}
         </div>
       )}
     </div>
