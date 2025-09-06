@@ -27,7 +27,6 @@ const initialState: ProfileState = {
   error: null,
 };
 
-// 🔹 Получение профиля
 export const fetchProfile = createAsyncThunk<Profile | null>(
   "profile/fetchProfile",
   async (_, { rejectWithValue }) => {
@@ -46,7 +45,6 @@ export const fetchProfile = createAsyncThunk<Profile | null>(
   },
 );
 
-// 🔹 Сохранение нового профиля
 export const saveProfile = createAsyncThunk<Profile, Omit<Profile, "id">>(
   "profile/saveProfile",
   async (data, { rejectWithValue }) => {
@@ -68,7 +66,6 @@ export const saveProfile = createAsyncThunk<Profile, Omit<Profile, "id">>(
   },
 );
 
-// 🔹 Обновление существующего профиля
 export const updateProfile = createAsyncThunk<Profile, Profile>(
   "profile/updateProfile",
   async (data, { rejectWithValue }) => {

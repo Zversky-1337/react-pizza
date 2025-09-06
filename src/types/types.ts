@@ -10,7 +10,7 @@ export interface Pizza {
   title: string;
   price: number;
   imageUrl: string;
-  types: number[]; // индексы типов теста
+  types: number[];
   sizes: number[];
   toppings?: Topping[];
 }
@@ -20,9 +20,9 @@ export interface CartItemType {
   title: string;
   price: number;
   imageUrl: string;
-  type: string; // индекс теста
-  size: number; // размер в см
-  count: number; // количество этой позиции
+  type: string;
+  size: number;
+  count: number;
 }
 
 export interface CartState {

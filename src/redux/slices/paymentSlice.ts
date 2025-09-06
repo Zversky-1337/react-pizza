@@ -24,7 +24,6 @@ const initialState: PaymentState = {
   error: null,
 };
 
-// Загрузить все карты
 export const fetchCards = createAsyncThunk<Card[]>(
   "payment/fetchCards",
   async () => {
@@ -33,7 +32,6 @@ export const fetchCards = createAsyncThunk<Card[]>(
   },
 );
 
-// Добавить карту
 export const addCard = createAsyncThunk<Card, string>(
   "payment/addCard",
   async (cardNumber: string) => {
@@ -43,7 +41,6 @@ export const addCard = createAsyncThunk<Card, string>(
   },
 );
 
-// Удалить карту
 export const deleteCard = createAsyncThunk<string, string>(
   "payment/deleteCard",
   async (id: string) => {
@@ -62,7 +59,6 @@ const paymentSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // fetchCards
       .addCase(fetchCards.pending, (state) => {
         state.status = "loading";
       })
@@ -74,11 +70,9 @@ const paymentSlice = createSlice({
         state.status = "failed";
         state.error = action.error.message || "Ошибка загрузки карт";
       })
-      // addCard
       .addCase(addCard.fulfilled, (state, action) => {
         state.cards.push(action.payload);
       })
-      // deleteCard
       .addCase(deleteCard.fulfilled, (state, action) => {
         state.cards = state.cards.filter((c) => c.id !== action.payload);
       });

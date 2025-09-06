@@ -35,7 +35,6 @@ const Payment: React.FC = () => {
     reset,
   } = useForm<FormData>({ defaultValues: { card: "" } });
 
-  // загрузка при монтировании
   useEffect(() => {
     dispatch(fetchCards());
   }, [dispatch]);
@@ -73,7 +72,6 @@ const Payment: React.FC = () => {
         )}
       </div>
 
-      {/* форма */}
       <form onSubmit={handleSubmit(onSubmit)}>
         {showInput && (
           <Controller

@@ -34,14 +34,12 @@ const Home: React.FC = () => {
     );
   }, [categoryId, sortType, page, limit, searchValue, dispatch]);
 
-  // Бесконечная прокрутка (только если нет поиска)
   useInfiniteScroll({
     fetchMore: () => dispatch(setPage(page + 1)),
     hasMore: !searchValue && items.length < totalCount,
     loading: status === "loading",
   });
 
-  // Фильтрация локально, если есть searchValue
   const pizzas = items
     .filter((obj) =>
       obj.title.toLowerCase().includes(searchValue.toLowerCase()),

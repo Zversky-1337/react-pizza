@@ -35,7 +35,6 @@ export const fetchPizzas = createAsyncThunk<
 >(
   `${SLICE_NAME}/fetchPizzas`,
   async ({ category, sortType, page, limit, search }) => {
-    // Типизация параметров запроса
     const params: {
       category?: number;
       _sort?: string;
@@ -45,8 +44,7 @@ export const fetchPizzas = createAsyncThunk<
     } = { category, _sort: sortType };
 
     if (search) {
-      // При поиске получаем все пиццы без пагинации
-      params._limit = 1000; // или любое большое число
+      params._limit = 1000;
     } else {
       params._page = page;
       params.per_page = limit;

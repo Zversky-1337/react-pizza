@@ -35,7 +35,6 @@ const PersonalData: React.FC = () => {
     setValue,
   } = useForm<FormData>();
 
-  // Маска телефона
   useEffect(() => {
     if (!phoneRef.current) return;
     const mask = IMask(phoneRef.current, { mask: "+{7} (000) 000-00-00" });
@@ -43,12 +42,10 @@ const PersonalData: React.FC = () => {
     return () => mask.destroy();
   }, [setValue]);
 
-  // Загружаем профиль при монтировании
   useEffect(() => {
     dispatch(fetchProfile());
   }, [dispatch]);
 
-  // Если профиль найден — заполняем форму
   useEffect(() => {
     if (profile) {
       setValue("name", profile.name);
@@ -63,7 +60,6 @@ const PersonalData: React.FC = () => {
     }
   }, [profile, setValue]);
 
-  // Отправка формы
   const onSubmit = (data: FormData) => {
     if (!profile) {
       dispatch(saveProfile(data));
@@ -74,7 +70,6 @@ const PersonalData: React.FC = () => {
     setIsSave(true);
   };
 
-  // Переключение кнопки "Изменить"
   const handleEditClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (isSave) {
       e.preventDefault();

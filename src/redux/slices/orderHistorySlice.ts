@@ -25,7 +25,6 @@ const initialState: OrderHistoryState = {
   error: null,
 };
 
-// thunk для загрузки заказов
 export const fetchOrders = createAsyncThunk<Order[]>(
   "orderHistory/fetchOrders",
   async (_, { rejectWithValue }) => {

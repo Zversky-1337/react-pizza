@@ -7,7 +7,6 @@ import type { RootState } from "../store.ts";
 import type { CartItemType, CartState } from "../../types/types.ts";
 
 export type CartItemInput = Omit<CartItemType, "count">;
-
 export type CartKey = Pick<CartItemType, "id" | "type" | "size" | "price">;
 
 export const payOrder = createAsyncThunk(
@@ -40,20 +39,37 @@ export const payOrder = createAsyncThunk(
 
     if (!response.ok) throw new Error("Ошибка при оплате");
 
-    // Очистка корзины после успешного платежа
     dispatch(clearItems());
 
-    return orderData; // можно использовать для уведомления пользователя
+    return orderData;
   },
 );
 
-const initialState: CartState = {
-  totalPrice: 0,
-  items: [],
-  countPizzaCart: 0,
-  status: "idle", // добавляем статус для отслеживания загрузки
-  error: null as string | null,
+const loadCart = (): CartState => {
+  try {
+    const data = localStorage.getItem("cart");
+    if (data) return JSON.parse(data) as CartState;
+  } catch (e) {
+    console.error("Ошибка загрузки корзины:", e);
+  }
+  return {
+    totalPrice: 0,
+    items: [],
+    countPizzaCart: 0,
+    status: "idle",
+    error: null,
+  };
 };
+
+const saveCart = (state: CartState) => {
+  try {
+    localStorage.setItem("cart", JSON.stringify(state));
+  } catch (e) {
+    console.error("Ошибка сохранения корзины:", e);
+  }
+};
+
+const initialState: CartState = loadCart();
 
 const recalcTotals = (state: CartState) => {
   state.countPizzaCart = state.items.reduce(
@@ -83,15 +99,18 @@ export const cartSlice = createSlice({
         : state.items.push({ ...action.payload, count: 1 });
 
       recalcTotals(state);
+      saveCart(state);
     },
     removeItem(state, action: PayloadAction<number>) {
       state.items = state.items.filter((item) => item.id !== action.payload);
       recalcTotals(state);
+      saveCart(state);
     },
     clearItems(state) {
       state.items = [];
       state.countPizzaCart = 0;
       state.totalPrice = 0;
+      saveCart(state);
     },
 
     clearPosition(state, action: PayloadAction<CartKey>) {
@@ -108,6 +127,7 @@ export const cartSlice = createSlice({
       );
 
       recalcTotals(state);
+      saveCart(state);
     },
 
     incrementItem(state, action: PayloadAction<CartKey>) {
@@ -125,8 +145,8 @@ export const cartSlice = createSlice({
         item.count++;
       }
 
-      // пересчёт
       recalcTotals(state);
+      saveCart(state);
     },
 
     decrementItem(state, action: PayloadAction<CartKey>) {
@@ -154,8 +174,8 @@ export const cartSlice = createSlice({
         );
       }
 
-      // Пересчитываем счетчики
       recalcTotals(state);
+      saveCart(state);
     },
   },
   extraReducers: (builder) => {
@@ -166,6 +186,7 @@ export const cartSlice = createSlice({
       })
       .addCase(payOrder.fulfilled, (state) => {
         state.status = "succeeded";
+        saveCart(state); // очищение сохраняем тоже
       })
       .addCase(payOrder.rejected, (state, action) => {
         state.status = "failed";
