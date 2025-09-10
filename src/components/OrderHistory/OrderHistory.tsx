@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { fetchOrders } from "../../redux/slices/orderHistorySlice";
 import styles from "./OrderHistory.module.scss";
+import { format } from "date-fns";
 
 const OrderHistory: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -33,18 +34,25 @@ const OrderHistory: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          {reverseOrders.map((order) => (
-            <tr key={order.id}>
-              <td>{order.time}</td>
-              <td>{order.amount} ₽</td>
-              <td>{order.payment}</td>
-              <td>
-                <button className={styles.receiptButton}>
-                  {order.receipt}
-                </button>
-              </td>
-            </tr>
-          ))}
+          {reverseOrders.map((order) => {
+            const formattedTime = format(
+              new Date(order.time),
+              "yyyy-MM-dd HH:mm",
+            );
+
+            return (
+              <tr key={order.id}>
+                <td>{formattedTime}</td>
+                <td>{order.amount} ₽</td>
+                <td>{order.payment}</td>
+                <td>
+                  <button className={styles.receiptButton}>
+                    {order.receipt}
+                  </button>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>

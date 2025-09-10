@@ -10,8 +10,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 
 function App() {
   const location = useLocation();
-  const state = location.state;
-  const backgroundLocation = state?.background || null;
+  const backgroundLocation = location.state?.background || null;
 
   const isModal = location.pathname.startsWith("/modal/");
 
@@ -20,6 +19,7 @@ function App() {
       <div className="wrapper">
         <Header />
         <div className="content">
+          {/* Основные маршруты */}
           <Routes location={backgroundLocation || location}>
             <Route path="/" element={<Home />} />
             <Route path="/cart" element={<Cart />} />
@@ -28,14 +28,11 @@ function App() {
             <Route path="*" element={<NotFound />} />
           </Routes>
 
-          {(backgroundLocation || isModal) && (
-            <>
-              {!backgroundLocation && <Home />}
-
-              <Routes>
-                <Route path="/modal/:id" element={<Modal />} />
-              </Routes>
-            </>
+          {/* Модалка поверх Home */}
+          {isModal && (
+            <Routes>
+              <Route path="/modal/:id" element={<Modal />} />
+            </Routes>
           )}
         </div>
       </div>

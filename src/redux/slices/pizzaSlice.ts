@@ -57,9 +57,6 @@ export const fetchPizzas = createAsyncThunk<
       ? pizzas.length
       : (res.data.items ?? pizzas.length);
 
-    console.log(pizzas);
-    console.log(totalCount);
-
     return { pizzas, totalCount };
   },
 );

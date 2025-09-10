@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import PizzaBlock from "../components/PizzaBlock/PizzaBlock.js";
 import Skeleton from "../components/PizzaBlock/Skeleton.js";
 import Filter from "../components/Filter.tsx";
@@ -22,9 +22,12 @@ const Home: React.FC = () => {
 
   // Сброс при смене фильтра, сортировки или поиска
   useEffect(() => {
-    dispatch(setPage(1));
-    dispatch(setItems([]));
-  }, [categoryId, sortType, searchValue, dispatch]);
+    // Если Home открыт как фон модалки, не очищаем items
+    if (!location.state?.background) {
+      dispatch(setPage(1));
+      dispatch(setItems([]));
+    }
+  }, [categoryId, sortType, searchValue, dispatch, location.state]);
 
   // Загрузка пицц
   useEffect(() => {
@@ -34,12 +37,18 @@ const Home: React.FC = () => {
     );
   }, [categoryId, sortType, page, limit, searchValue, dispatch]);
 
-  useInfiniteScroll({
-    fetchMore: () => dispatch(setPage(page + 1)),
+  // Функция для подгрузки следующей страницы
+  const fetchMore = useCallback(() => {
+    dispatch(setPage(page + 1));
+  }, [dispatch, page]);
+
+  const sentinelRef = useInfiniteScroll({
+    fetchMore,
     hasMore: !searchValue && items.length < totalCount,
     loading: status === "loading",
   });
 
+  // Рендер пицц
   const pizzas = items
     .filter((obj) =>
       obj.title.toLowerCase().includes(searchValue.toLowerCase()),
@@ -68,6 +77,7 @@ const Home: React.FC = () => {
           {pizzas}
           {status === "loading" &&
             [...Array(6)].map((_, i) => <Skeleton key={i} />)}
+          <div ref={sentinelRef} style={{ height: 1 }} />
         </div>
       )}
     </div>

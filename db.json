@@ -1093,12 +1093,12 @@
   ],
   "profile": [
     {
-      "id": "1757054900432",
-      "name": "Dima",
-      "phoneNumber": "+79119648603",
-      "birthdayDay": "16",
-      "birthdayMonth": "2",
-      "birthdayYear": "2000",
+      "id": "1757473331856",
+      "name": "DmitryPoshevkin",
+      "phoneNumber": "79119648603",
+      "birthdayDay": "18",
+      "birthdayMonth": "1",
+      "birthdayYear": "2007",
       "email": "poshevkin1687@gmail.com"
     }
   ],
@@ -1108,8 +1108,8 @@
       "card": "1488 3242 3424 0322"
     },
     {
-      "id": "1757081011276",
-      "card": "3424 2342 3234 5243"
+      "id": "1757473199078",
+      "card": "4234 2342 3423 4234"
     }
   ],
   "orders": [
@@ -1138,6 +1138,20 @@
       "id": "f513",
       "time": "2025-09-06 16:33",
       "amount": "1975",
+      "payment": "Оплата картой",
+      "receipt": "Скачать"
+    },
+    {
+      "id": "71b5",
+      "time": "2025-09-10T00:42:50.898Z",
+      "amount": "718",
+      "payment": "Оплата картой",
+      "receipt": "Скачать"
+    },
+    {
+      "id": "6a7b",
+      "time": "2025-09-10T00:49:25.578Z",
+      "amount": "1762",
       "payment": "Оплата картой",
       "receipt": "Скачать"
     }

@@ -4,34 +4,44 @@ interface InfiniteScrollProps {
   fetchMore: () => void;
   hasMore: boolean;
   loading: boolean;
-  offset?: number;
 }
 
 export const useInfiniteScroll = ({
   fetchMore,
   hasMore,
   loading,
-  offset = 200,
 }: InfiniteScrollProps) => {
-  const isFetching = useRef(false);
+  const observerRef = useRef<IntersectionObserver | null>(null);
+  const sentinelRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const nearBottom =
-        window.innerHeight + window.scrollY >=
-        document.body.offsetHeight - offset;
+    if (!sentinelRef.current) return;
 
-      if (nearBottom && hasMore && !loading && !isFetching.current) {
-        isFetching.current = true;
-        fetchMore();
-      }
+    // Очищаем предыдущий Observer перед созданием нового
+    if (observerRef.current) {
+      observerRef.current.disconnect();
+    }
+
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        if (entry.isIntersecting && hasMore && !loading) {
+          fetchMore();
+        }
+      },
+      {
+        root: null, // viewport
+        rootMargin: "100px", // заранее загружаем данные
+        threshold: 0.1,
+      },
+    );
+
+    observerRef.current.observe(sentinelRef.current);
+
+    return () => {
+      observerRef.current?.disconnect();
     };
+  }, [fetchMore, hasMore, loading]);
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [fetchMore, hasMore, loading, offset]);
-
-  useEffect(() => {
-    if (!loading) isFetching.current = false;
-  }, [loading]);
+  return sentinelRef; // ref, который нужно повесить на sentinel-элемент
 };

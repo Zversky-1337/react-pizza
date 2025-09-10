@@ -5,45 +5,53 @@ import {
 } from "@reduxjs/toolkit";
 import type { RootState } from "../store.ts";
 import type { CartItemType, CartState } from "../../types/types.ts";
+import type { AxiosError } from "axios";
+import axios from "axios";
 
 export type CartItemInput = Omit<CartItemType, "count">;
 export type CartKey = Pick<CartItemType, "id" | "type" | "size" | "price">;
 
-export const payOrder = createAsyncThunk(
-  "cart/payOrder",
-  async (_, { getState, dispatch }) => {
-    const state = getState() as RootState;
-    const { totalPrice, countPizzaCart } = state.cart;
+interface OrderData {
+  time: string;
+  amount: string;
+  payment: string;
+  receipt: string;
+}
 
-    if (countPizzaCart === 0) throw new Error("Корзина пуста");
+// ✅ типизированный createAsyncThunk
+export const payOrder = createAsyncThunk<
+  OrderData, // успех
+  void, // аргументы (ничего не передаём)
+  { rejectValue: string } // ошибка
+>("cart/payOrder", async (_, { getState, dispatch, rejectWithValue }) => {
+  const state = getState() as RootState;
+  const { totalPrice, countPizzaCart } = state.cart;
 
-    const now = new Date();
-    const formattedTime = `${now.getFullYear()}-${String(
-      now.getMonth() + 1,
-    ).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")} ${String(
-      now.getHours(),
-    ).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
+  if (countPizzaCart === 0) {
+    return rejectWithValue("Корзина пуста");
+  }
 
-    const orderData = {
-      time: formattedTime,
-      amount: String(totalPrice),
-      payment: "Оплата картой",
-      receipt: "Скачать",
-    };
+  const orderData: OrderData = {
+    time: new Date().toISOString(),
+    amount: String(totalPrice),
+    payment: "Оплата картой",
+    receipt: "Скачать",
+  };
 
-    const response = await fetch("http://localhost:4001/orders", {
-      method: "POST",
+  try {
+    await axios.post("http://localhost:4001/orders", orderData, {
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(orderData),
     });
 
-    if (!response.ok) throw new Error("Ошибка при оплате");
-
     dispatch(clearItems());
-
     return orderData;
-  },
-);
+  } catch (err) {
+    const error = err as AxiosError<{ message?: string }>;
+    return rejectWithValue(
+      error.response?.data?.message || "Ошибка при оплате",
+    );
+  }
+});
 
 const loadCart = (): CartState => {
   try {
@@ -112,7 +120,6 @@ export const cartSlice = createSlice({
       state.totalPrice = 0;
       saveCart(state);
     },
-
     clearPosition(state, action: PayloadAction<CartKey>) {
       const { id, type, size, price } = action.payload;
 
@@ -129,7 +136,6 @@ export const cartSlice = createSlice({
       recalcTotals(state);
       saveCart(state);
     },
-
     incrementItem(state, action: PayloadAction<CartKey>) {
       const { id, type, size, price } = action.payload;
 
@@ -148,7 +154,6 @@ export const cartSlice = createSlice({
       recalcTotals(state);
       saveCart(state);
     },
-
     decrementItem(state, action: PayloadAction<CartKey>) {
       const { id, type, size, price } = action.payload;
 
@@ -186,11 +191,11 @@ export const cartSlice = createSlice({
       })
       .addCase(payOrder.fulfilled, (state) => {
         state.status = "succeeded";
-        saveCart(state); // очищение сохраняем тоже
+        saveCart(state);
       })
       .addCase(payOrder.rejected, (state, action) => {
         state.status = "failed";
-        state.error = action.error.message || "Ошибка при оплате";
+        state.error = action.payload || "Ошибка при оплате";
       });
   },
 });
